@@ -532,7 +532,12 @@ footer{
 }
 #samsung{width: 120px !important;}
 .footer-mobile{display:none !important;}
-#titulo-empresa{text-align: right;}
+#titulo-empresa{
+    text-align: right;
+    font-size: 32px !important;
+    color: #4D4D4D !important;
+    font-weight: bold;
+}
 .corpo-texto {
     width: 90%;
     margin: -50px auto 0 auto;
@@ -562,6 +567,9 @@ footer{
 }
 .pagination-btn.btn-primary {color: #fff !important;}
 .pagination-btn:hover{color: #fff !important;}
+.container_destaque{
+    width:80%;
+}
 @media (max-width: 1267px) and (min-width: 992px) {
     .navbartopo {max-width:95%;}
     .nav-link {
@@ -895,6 +903,11 @@ footer{
     .footer-desktop{display:none !important;}
     .footer-mobile{display:flex !important;}
     .navbarfundo-topo {height:0px!important;}
+    #titulo-empresa{
+        text-align: center;
+        font-size: 24px !important;
+        font-weight: bold;
+    }
 }
 @media (max-width: 610px){
     .social-icons {
@@ -993,7 +1006,11 @@ footer{
     #footer-certificados{left: -15% !important;}
     #footer-logos{gap:20px;}
     #footer-copyright{font-size:16px !important;}
-    #titulo-empresa{text-align: center;}
+    #titulo-empresa{
+        text-align: center;
+        font-size: 22px !important;
+        font-weight: bold;
+    }
 }
 
 @media (max-width: 767.98px) {
@@ -1006,6 +1023,11 @@ footer{
         height: 320px !important;
         width: 100% !important;
         border-radius: 0; 
+    }
+    #titulo-empresa{
+        text-align: center;
+        font-size: 22px !important;
+        font-weight: bold;
     }
     .corpo-texto {
         width: 90%;

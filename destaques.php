@@ -19,8 +19,8 @@ $totalPages = ceil($totalItems / $perPage);
 <div class="container-fluid p-0">
     <div class="row m-0 m-md-5">
         <div class="col-12 p-0">
-          <h2 style="text-align: center; margin-bottom:40px; font-weight: bolder;font-size: 28px;color: #4D4D4D !important;">Destaques</h2>
-            <div class="row g-0 g-md-5">
+          <h2 style="text-align: center; margin-bottom:40px; font-weight: bolder;font-size: 34px;color: #4D4D4D !important;">Destaques</h2>
+            <div class="row g-0 g-md-5 mx-md-4">
               <!-- Cards -->
           <?php foreach ($pageItems as $d): ?>
               <div class="col-12 col-md-6">
@@ -31,7 +31,7 @@ $totalPages = ceil($totalItems / $perPage);
                           <h6 class="card-title"><?= $d['data'] ?></h6>
                           <p class="card-text"><?= mb_strimwidth($d['texto'], 0, 270, '...') ?></p>
                           <div style="display: flex; justify-content: center;">
-                              <a href="#" class="destaques-btn">Ver Mais</a>
+                              <a href="<?= $d['pagina_url']?>" class="destaques-btn">Ver Mais</a>
                           </div>                                
                       </div>
                   </div>

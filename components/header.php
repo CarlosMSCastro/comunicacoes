@@ -49,7 +49,7 @@ $slides = select_sql("SELECT * FROM carousel_topo WHERE ativo = 1 ORDER BY ordem
           </div>
           <div class="header-top header-mobile">
             <div class="header-center">
-              <a href="index.html">
+              <a href="home.php">
                 <img id="logoprincipal" src="imagens/LogotipoComunicacoes.png">
               </a>
               <div class="social-icons">

@@ -22,12 +22,13 @@ $titulo_pai = $titulo_pai_result[0]['titulo'] ?? '';
         margin: 0 auto;
         text-align: justify;
         font-size: 22px !important;
+        margin-bottom:100px !important;
     ">
         <h1 style=" line-height: 1.2; text-align: right; ">
             <?= $titulo_pai ?> - <?= $pagina['titulo_h1'] ?>
         </h1>
 
-        <p style=" line-height: 1.8;">
+        <p style="line-height: 1.8; ">
             <?= $pagina['texto'] ?>
         </p>
     </div>

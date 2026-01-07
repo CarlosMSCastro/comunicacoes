@@ -532,7 +532,7 @@ footer{
 }
 #samsung{width: 120px !important;}
 .footer-mobile{display:none !important;}
-
+#titulo-empresa{text-align: right;}
 @media (max-width: 1267px) and (min-width: 992px) {
     .navbartopo {max-width:95%;}
     .nav-link {
@@ -964,4 +964,5 @@ footer{
     #footer-certificados{left: -15% !important;}
     #footer-logos{gap:20px;}
     #footer-copyright{font-size:16px !important;}
+    #titulo-empresa{text-align: center;}
 }

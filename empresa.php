@@ -1,7 +1,7 @@
 <?php
 require_once "bd_helper.php";
 require_once "components/header.php";
-
+$id = $_GET['id'] ?? 0;
 
 $id_navbar = $_GET['id'] ?? 0;
 
@@ -16,24 +16,17 @@ $titulo_pai = $titulo_pai_result[0]['titulo'] ?? '';
 ?>
 
 <?php if ($pagina): ?>
-    <div style="
-        width: 98%;
-        max-width: 85%;
-        margin: 0 auto;
-        text-align: justify;
-        font-size: 22px !important;
-        margin-bottom:100px !important;
-    ">
-        <h1 style=" line-height: 1.2; text-align: right; ">
-            <?= $titulo_pai ?> - <?= $pagina['titulo_h1'] ?>
-        </h1>
+  <div id="h1_pagempresas" style="width: 98%; max-width: 85%; margin: 0 auto; text-align: justify; font-size: 22px !important; margin-bottom:100px !important;">
+    <h1 id="titulo-empresa" style=" line-height: 1.2;  ">
+      <?= $titulo_pai ?> - <?= $pagina['titulo_h1'] ?>
+    </h1>
 
-        <p style="line-height: 1.8; ">
-            <?= $pagina['texto'] ?>
-        </p>
-    </div>
+    <p style="line-height: 1.8; ">
+      <?= $pagina['texto'] ?>
+    </p>
+  </div>
 <?php else: ?>
-    <p>Página não encontrada.</p>
+  <p>Página não encontrada.</p>
 <?php endif; ?>
 
 <?php

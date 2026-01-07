@@ -131,6 +131,7 @@ $slides = select_sql("SELECT * FROM carousel_topo WHERE ativo = 1 ORDER BY ordem
           </div>
 
 
+
         <!-- NavbarTopoDesktop-->
           <nav class="navbar navbar-expand-lg navbartopo nav-desktop">
             <div class="container">

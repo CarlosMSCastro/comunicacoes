@@ -23,7 +23,7 @@ $noticia = select_sql("SELECT titulo, imagem, texto FROM footer_carousel WHERE i
 
         <div class="row mt-3">
           <div class="col-12">
-            <p style="text-align: justify; font-size: 20px; color: #4D4D4D;">
+            <p class="textomobile">
               <?= $noticia['texto'] ?>
             </p>
           </div>

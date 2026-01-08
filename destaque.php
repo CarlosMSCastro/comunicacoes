@@ -9,12 +9,12 @@ $id = (int)($_GET['id'] ?? 0);
 $destaque = select_sql("SELECT titulo, imagem, texto FROM carousel2 WHERE id = $id")[0] ?? null;
 ?>
 
-<div class="container-fluid p-5 container_destaque">
+<div class="container-fluid p-0 container_destaque">
   <div class="row m-0">
       <div class="col-12 p-0">
 
       <?php if ($destaque): ?>
-        <h1 id="titulo-empresa" style=" line-height: 1.2;  ">
+        <h1 id="titulo-empresa">
           <?= ucfirst($tipoPagina) ?> – <?= $destaque['titulo'] ?>
         </h1>
       <?php endif; ?>
@@ -25,7 +25,7 @@ $destaque = select_sql("SELECT titulo, imagem, texto FROM carousel2 WHERE id = $
         </div>
         <div class="row mt-3">
           <div class="col-12">
-            <p style="text-align: justify; font-size: 20px; color: #4D4D4D;">
+            <p class="textomobile">
               <?= $destaque['texto'] ?>
             </p>
           </div>

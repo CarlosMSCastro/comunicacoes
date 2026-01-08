@@ -16,13 +16,13 @@ $solucao = select_sql("SELECT titulo_h1, texto, texto_2, imagem FROM paginas_sol
       <div class="col-12 p-0">
 
       <?php if ($solucao): ?>
-        <h1 id="titulo-empresa" style=" line-height: 1.2;  ">
+        <h1 id="titulo-empresa">
           <?= ucfirst($tipoPagina) ?> – <?= $solucao['titulo_h1'] ?>
         </h1>
       <?php endif; ?>
         <div class="row mt-3">
           <div class="col-12">
-            <p style="text-align: justify; font-size: 22px; color: #4D4D4D;">
+            <p class="textomobile">
               <?= $solucao['texto'] ?>
             </p>
           </div>
@@ -35,7 +35,7 @@ $solucao = select_sql("SELECT titulo_h1, texto, texto_2, imagem FROM paginas_sol
 
         <div class="row mt-3">
           <div class="col-12">
-            <p style="text-align: justify; font-size: 22px; color: #4D4D4D;">
+            <p class="textomobile">
               <?= $solucao['texto_2'] ?>
             </p>
           </div>

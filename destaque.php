@@ -12,7 +12,6 @@ $destaque = select_sql("SELECT titulo, imagem, texto FROM carousel2 WHERE id = $
 <div class="container-fluid p-0 container_destaque">
   <div class="row m-0">
       <div class="col-12 p-0">
-
       <?php if ($destaque): ?>
         <h1 id="titulo-empresa">
           <?= ucfirst($tipoPagina) ?> – <?= $destaque['titulo'] ?>
@@ -31,15 +30,14 @@ $destaque = select_sql("SELECT titulo, imagem, texto FROM carousel2 WHERE id = $
           </div>
         </div>
         <div class="row mt-4 mx-0">
-          <div class="col-12 text-center text-md-end px-0">
+          <div class="col-12 text-center text-md-end px-0">            
             <a href="destaques.php" class="destaques-btn d-inline-block">Voltar para destaques</a>
           </div>
         </div>
-        
       </div>
   </div>
 </div>
-
+<br><br>
 
 <?php
 $showCarousel2 = false;

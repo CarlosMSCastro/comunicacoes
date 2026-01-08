@@ -18,22 +18,16 @@ if (!$carousel2Items) {
     <div class="container-fluid p-0 m-0"> 
       <div class="row p-0 my-0 mx-3">
         <div class="col-12 p-0 m-0">
-
-          <section id="destaques">
-            
+          <section id="destaques">            
             <h3 class="titulo-secundario">Destaques</h3><br>
-
             <hr class="linha-separadora">
-
             <div id="carouselDestaques" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3500">
-
               <!-- Indicadores -->
               <div class="carousel-indicators">
                 <?php foreach($carousel2Items as $index => $item): ?>
                   <button type="button" data-bs-target="#carouselDestaques" data-bs-slide-to="<?= $index ?>" <?= $index === 0 ? 'class="active"' : '' ?>></button>
                 <?php endforeach; ?>
               </div>
-
               <!-- Slides -->
               <div class="carousel-inner">
                 <?php foreach($carousel2Items as $index => $item): ?>
@@ -43,12 +37,10 @@ if (!$carousel2Items) {
                       <div class="col-6">
                         <img src="<?= $item['imagem'] ?>" class="destaques-img w-100">
                       </div>
-
                       <!-- Conteúdo -->
                       <div class="col-6 destaques-conteudo">
                         <h3 class="destaques-titulo"><?= $item['titulo'] ?></h3>
                         <div class="destaques-data"><?= $item['data'] ?></div>
-
                         <!-- Texto  -->
                         <p class="destaques-texto">
                           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget rutrum nisi. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Morbi id ante volutpat, commodo dolor eu, ornare leo. Integer efficitur, lacus sit amet pellentesque egestas, sapien massa tristique turpis, ac faucibus augue magna et libero. Quisque vel laoreet ipsum. Sed ac eleifend justo, maximus luctus turpis. Duis at neque nec est semper cursus. Quisque quis felis eu mi congue mollis eu at odio.
@@ -58,7 +50,6 @@ if (!$carousel2Items) {
                           Vivamus aliquam nisi ut mauris luctus, eget suscipit lorem congue. Morbi ac ex quam. Aenean dapibus nibh vel nisi hendrerit venenatis a vitae nunc. In hac habitasse platea dictumst. Curabitur eleifend sagittis arcu,
                         </p>
                         <br>
-
                         <!-- VER MAIS  -->
                         <a href="<?= !empty($item['pagina_url']) ? $item['pagina_url'] : '#' ?>" class="destaques-btn">VER MAIS</a>
                       </div>
@@ -66,7 +57,6 @@ if (!$carousel2Items) {
                   </div>
                 <?php endforeach; ?>
               </div>
-
               <!-- Indicators -->
               <button class="carousel-control-prev" type="button" data-bs-target="#carouselDestaques" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon"></span>
@@ -79,7 +69,6 @@ if (!$carousel2Items) {
             </div>
 
           </section>
-
           <br><br>
         </div>
       </div>
@@ -90,71 +79,62 @@ if (!$carousel2Items) {
   <?php if (!empty($showFooterCarousel)): ?>
     <div class="container-fluid p-0 m-0">
       <div class="row m-0 p-0">
-          <div class="col-12 p-0 m-0">
+        <div class="col-12 p-0 m-0">
+          <section id="noticias">
+            <h3 class="titulo-secundario">Últimas Notícias e Eventos</h3><br>
+            <!-- Carrousel-->
+            <div id="carouselNoticias" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3500">
 
-              <section id="noticias">
-
-                  <h3 class="titulo-secundario">Últimas Notícias e Eventos</h3><br>
-                  <!-- Carrousel-->
-                  <div id="carouselNoticias" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3500">
-
-                      <div class="carousel-indicators">
-                          <?php foreach ($footerSlides as $i => $slide): ?>
-                              <button type="button" data-bs-target="#carouselNoticias" data-bs-slide-to="<?= $i ?>" <?= $i === 0 ? 'class="active"' : '' ?>></button>
-                          <?php endforeach; ?>
-                      </div>
-
-                      <div class="carousel-inner">
-                          <?php foreach ($footerSlides as $i => $slide): ?>
-                              <div class="carousel-item <?= $i === 0 ? 'active' : '' ?>">
-                                  <div class="row g-0">
-
-                                      <div class="col-12">
-                                          <img src="<?= $slide['imagem'] ?>" class="noticias-img w-100">
-                                      </div>
-
-                                      <div class="noticias-conteudo">
-                                          <h3 class="noticias-titulo"><?= $slide['titulo'] ?></h3>
-                                          <div class="noticias-data"><?= $slide['data'] ?></div>
-
-                                          <p class="noticias-texto">
-                                              <?= $slide['texto'] ?>
-                                          </p>
-                                      </div>
-
-                                      <a href="<?= $slide['pagina_url'] ?>" class="noticias-btn">VER MAIS</a>
-
-                                  </div>
-                              </div>
-                          <?php endforeach; ?>
-                      </div>
-
-                  </div>
-
-
-              </section>
-              <!-- Navbarfundo-->
-              <nav id="navbarfundo" class="navbarfundo navbar navbar-expand-lg">
-                <div class="mx-auto navbarfundo-topo">
-
-                    <div class="collapse navbar-collapse" id="navbarFundoDropdown">
-                        <ul class="navbar-nav navbarfundo-menu">
-
-                            <?php foreach ($footerNav as $item): ?>
-                                <li class="nav-item navbarfundo-item">
-                                    <a class="nav-link navbarfundo-link" href="<?= $item['url'] ?>">
-                                        <?= $item['titulo'] ?>
-                                    </a>
-                                </li>
-                            <?php endforeach; ?>
-
-                        </ul>
-                    </div>
-
+                <div class="carousel-indicators">
+                    <?php foreach ($footerSlides as $i => $slide): ?>
+                        <button type="button" data-bs-target="#carouselNoticias" data-bs-slide-to="<?= $i ?>" <?= $i === 0 ? 'class="active"' : '' ?>></button>
+                    <?php endforeach; ?>
                 </div>
-              </nav>
 
-          </div>
+                <div class="carousel-inner">
+                    <?php foreach ($footerSlides as $i => $slide): ?>
+                        <div class="carousel-item <?= $i === 0 ? 'active' : '' ?>">
+                            <div class="row g-0">
+
+                                <div class="col-12">
+                                    <img src="<?= $slide['imagem'] ?>" class="noticias-img w-100">
+                                </div>
+
+                                <div class="noticias-conteudo">
+                                    <h3 class="noticias-titulo"><?= $slide['titulo'] ?></h3>
+                                    <div class="noticias-data"><?= $slide['data'] ?></div>
+
+                                    <p class="noticias-texto">
+                                        <?= $slide['texto'] ?>
+                                    </p>
+                                </div>
+
+                                <a href="<?= $slide['pagina_url'] ?>" class="noticias-btn">VER MAIS</a>
+
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+
+            </div>
+          </section>
+          <!-- Navbarfundo-->
+          <nav id="navbarfundo" class="navbarfundo navbar navbar-expand-lg">
+            <div class="mx-auto navbarfundo-topo">
+              <div class="collapse navbar-collapse" id="navbarFundoDropdown">
+                <ul class="navbar-nav navbarfundo-menu">
+                <?php foreach ($footerNav as $item): ?>
+                    <li class="nav-item navbarfundo-item">
+                      <a class="nav-link navbarfundo-link" href="<?= $item['url'] ?>">
+                        <?= $item['titulo'] ?>
+                      </a>
+                    </li>
+                  <?php endforeach; ?>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
       </div>
     </div>
   <?php endif; ?>

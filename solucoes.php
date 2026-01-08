@@ -11,7 +11,7 @@ $solucao = select_sql("SELECT titulo_h1, texto, texto_2, imagem FROM paginas_sol
 ?>
 
 
-<div class="container-fluid p-5 container_destaque">
+<div class="container-fluid p-3 container_destaque">
   <div class="row m-0">
       <div class="col-12 p-0">
 
@@ -20,21 +20,21 @@ $solucao = select_sql("SELECT titulo_h1, texto, texto_2, imagem FROM paginas_sol
           <?= ucfirst($tipoPagina) ?> – <?= $solucao['titulo_h1'] ?>
         </h1>
       <?php endif; ?>
-        <div class="row mt-3">
-          <div class="col-12">
+        <div class="row mt-3 p-0">
+          <div class="col-12 p-0">
             <p class="textomobile">
               <?= $solucao['texto'] ?>
             </p>
           </div>
         </div>
-        <div class="row">
-          <div class="col-12">
+        <div class="row p-0">
+          <div class="col-12 p-0">
             <img src="<?= $solucao['imagem'] ?>" alt="<?= htmlspecialchars($solucao['titulo_h1']) ?>" class="img-fluid mt-4 imgsolucoes">
           </div>
         </div>
 
-        <div class="row mt-3">
-          <div class="col-12">
+        <div class="row mt-3 p-1">
+          <div class="col-12 p-0">
             <p class="textomobile">
               <?= $solucao['texto_2'] ?>
             </p>

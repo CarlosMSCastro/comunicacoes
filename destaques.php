@@ -46,7 +46,6 @@ $totalPages = ceil($totalItems / $perPage);
             <?php for ($i = 1; $i <= $totalPages; $i++): ?>
                 <a href="?page=<?= $i ?>" class="btn rounded-0 <?= ($i == $page) ? 'btn-primary' : 'btn-outline-dark' ?> mx-1 pagination-btn"><?= $i ?></a>
             <?php endfor; ?>
-
                 <!-- Botão Próximo sempre visível -->
                 <a href="?page=<?= min($page + 1, $totalPages) ?>"class="btn rounded-0 btn-outline-dark mx-1 pagination-btn">&gt;</a>
             </div>

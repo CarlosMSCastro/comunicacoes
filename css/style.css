@@ -584,9 +584,23 @@ footer{
     font-size: 20px;
     color: #4D4D4D;
 }
+.textoempresa{
+    text-align: justify;
+    font-size: 22px;
+    color: #4D4D4D;
+}
 .parceiros{
     max-width:55% !important;
     margin-bottom: 40px;
+}
+.container-empresa{
+    width: 98%;
+    max-width: 85%;
+    margin: 0 auto;
+    text-align: justify;
+    font-size: 22px !important;
+    margin-bottom:100px !important;
+    color: #4D4D4D !important;
 }
 @media (max-width: 1267px) and (min-width: 992px) {
     .navbartopo {max-width:95%;}
@@ -1055,17 +1069,27 @@ footer{
     .card-title{font-size:22px !important;}
     .row.g-0.g-md-5 > .col-12.col-md-6:nth-of-type(n+7) {display: none !important;}
     .imgsolucoes{
-    height:300px !important;
-    object-fit:cover !important;
-    width: 100%;
+        height:300px !important;
+        object-fit:cover !important;
+        width: 100%;
     }
     .container_destaque{
-    width:100%;
-    margin-bottom:60px;
+        width:100%;
+        margin-bottom:60px;
     }
     .textomobile{
         text-align: justify;
         font-size: 16px;
         color: #4D4D4D;
+        width:85% !important;
+        margin:auto;
+    }
+    .container-empresa{
+        font-size: 16px !important;
+        max-width: 95% !important;
+    }
+    .parceiros{
+        width:100% !important;
+        margin-bottom: 40px;
     }
 }

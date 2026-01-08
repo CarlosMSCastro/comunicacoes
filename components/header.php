@@ -116,22 +116,22 @@ if (!empty($tipoPagina) && $tipoPagina === 'home') {
           </nav>          
         <!-- Carrousel do Header-->
           <div id="carousel1" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3500">
+            <?php if(count($slides) > 1): ?>
               <div class="carousel-indicators">
-                  <?php foreach ($slides as $i => $slide): ?>
-                      <button type="button"
-                              data-bs-target="#carousel1"
-                              data-bs-slide-to="<?= $i ?>"
-                              <?php if ($i === 0) echo 'class="active" aria-current="true"'; ?>>
-                      </button>
-                  <?php endforeach; ?>
+                <?php foreach ($slides as $i => $slide): ?>
+                  <button type="button" data-bs-target="#carousel1" data-bs-slide-to="<?= $i ?>"
+                    <?php if ($i === 0) echo 'class="active" aria-current="true"'; ?>>
+                  </button>
+                <?php endforeach; ?>
               </div>
+            <?php endif; ?>
 
               <div class="carousel-inner">
-                  <?php foreach ($slides as $i => $slide): ?>
-                      <div class="carousel-item <?php if ($i === 0) echo 'active'; ?>">
-                          <img src="<?= $slide['imagem'] ?>" class="d-block w-100">
-                      </div>
-                  <?php endforeach; ?>
+                <?php foreach ($slides as $i => $slide): ?>
+                  <div class="carousel-item <?php if ($i === 0) echo 'active'; ?>">
+                    <img src="<?= $slide['imagem'] ?>" class="d-block w-100">
+                  </div>
+                <?php endforeach; ?>
               </div>
           </div>
         <!-- NavbarTopoDesktop-->

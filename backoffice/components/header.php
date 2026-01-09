@@ -8,8 +8,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+
 
   <link rel="stylesheet" href="css/style.css">
+  <script src="js/script.js"></script>
 </head>
 <body>
 
@@ -23,10 +26,10 @@
 
       <ul class="nav flex-column gap-1">
         <li class="nav-item mb-3">
-          <a href="home.php" class="  nav-link rounded  bg-dark <?php echo ($pagina=='home')?'active':''; ?>">Home</a>
+          <a href="home.php" class="  nav-link rounded  bg-dark <?php echo ($pagina=='home')?'active':''; ?>">Entrada</a>
         </li>
         <li class="nav-item">
-          <a href="editar_home.php" class="  nav-link rounded  bg-dark  <?php echo ($pagina=='editar_home')?'active':''; ?>">Editar Página Home</a>
+          <a href="editar_home.php" class="  nav-link rounded  bg-dark  <?php echo ($pagina=='editar_home')?'active':''; ?>">Editar Home</a>
         </li>
         <li class="nav-item">
           <a href="editar_empresa.php" class="  nav-link rounded  bg-dark  <?php echo ($pagina=='editar_empresa')?'active':''; ?>">Empresa</a>

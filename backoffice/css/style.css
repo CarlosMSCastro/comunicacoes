@@ -27,8 +27,8 @@ body {
 }
 
 footer{
-  position:absolute;
-  bottom:0;
+  position:relative;
+
   background-color: rgba(0, 0, 0, 0.55);
   width:100%;
   text-align:center;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 08-Jan-2026 às 21:40
+-- Tempo de geração: 09-Jan-2026 às 01:59
 -- Versão do servidor: 10.4.32-MariaDB
 -- versão do PHP: 8.2.12
 
@@ -82,6 +82,27 @@ INSERT INTO `carousel_topo` (`id`, `imagem`, `ordem`, `ativo`) VALUES
 (2, 'imagens/carousel1/cabecalho_destaque.png', 2, 1),
 (3, 'imagens/carousel1/cabecalho_contactos.png', 3, 1),
 (4, 'imagens/carousel1/cabecalho_noticias_e_eventos.png', 4, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `colaboradores`
+--
+
+CREATE TABLE `colaboradores` (
+  `id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `data_ultimo_acesso` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Extraindo dados da tabela `colaboradores`
+--
+
+INSERT INTO `colaboradores` (`id`, `username`, `password`, `nome`, `data_ultimo_acesso`) VALUES
+(1, 'admin', '$2y$10$ZYjApfjjUBens8/zaW/0y.Sv/e0SvYIXlUhj3ybxddP0sMEwFs3Qm', 'Administrador', '00:52:37 - 09/01/2026');
 
 -- --------------------------------------------------------
 
@@ -184,12 +205,12 @@ CREATE TABLE `footer_navbar` (
 
 INSERT INTO `footer_navbar` (`id`, `titulo`, `url`, `ordem`) VALUES
 (1, 'Empresa', '#', 1),
-(2, 'Destaques', '#', 2),
-(3, 'Notícias e Eventos', '#', 3),
+(2, 'Destaques', 'destaques.php', 2),
+(3, 'Notícias e Eventos', 'noticias.php', 3),
 (4, 'Soluções', '#', 4),
 (5, 'Inovação e Tecnologia', '#', 5),
-(6, 'Os Nossos Parceiros', '#', 6),
-(7, 'Contactos', '#', 7);
+(6, 'Os Nossos Parceiros', 'parceiros.php', 6),
+(7, 'Contactos', 'contactos.php', 7);
 
 -- --------------------------------------------------------
 
@@ -216,7 +237,8 @@ INSERT INTO `headers` (`id`, `tipo_pagina`, `imagem`, `ativo`, `ordem`) VALUES
 (4, 'solucoes', 'imagens/headers/cabecalho_solucoes.png', 1, 1),
 (5, 'inovacoes e tecnologia', 'imagens/headers/cabecalho_inovacao_e_tecnologia.png', 1, 1),
 (6, 'noticias e evento', 'imagens/headers/cabecalho_noticia.png', 1, 1),
-(7, 'contactos', 'imagens/headers/cabecalho_contactos.png', 1, 1);
+(7, 'contactos', 'imagens/headers/cabecalho_contactos.png', 1, 1),
+(8, 'parceiros', 'imagens/headers/cabecalho_parceiros.png', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -399,6 +421,13 @@ ALTER TABLE `carousel_topo`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices para tabela `colaboradores`
+--
+ALTER TABLE `colaboradores`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`);
+
+--
 -- Índices para tabela `contactos`
 --
 ALTER TABLE `contactos`
@@ -484,6 +513,12 @@ ALTER TABLE `carousel_topo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT de tabela `colaboradores`
+--
+ALTER TABLE `colaboradores`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de tabela `contactos`
 --
 ALTER TABLE `contactos`
@@ -511,7 +546,7 @@ ALTER TABLE `footer_navbar`
 -- AUTO_INCREMENT de tabela `headers`
 --
 ALTER TABLE `headers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `home_conteudo`

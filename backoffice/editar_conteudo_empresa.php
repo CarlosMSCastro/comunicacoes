@@ -35,7 +35,10 @@ if (isset($_POST['titulo']) && isset($_POST['texto'])) {
         $url = "empresa.php?id=$id_navbar";  // ← USA ID DA NAVBAR
         idu_sql("UPDATE navbar SET url = ? WHERE id = ?", [$url, $id_navbar]);
 
-        $mensagem_sucesso = "Página atualizada com sucesso!";
+        // Guardar mensagem e redirecionar para a página de origem
+        $_SESSION['mensagem_sucesso'] = "Página atualizada com sucesso!";
+        header("Location: editar_empresa.php");
+        exit;
 
     } else {
         // NOVO
@@ -60,10 +63,15 @@ if (isset($_POST['titulo']) && isset($_POST['texto'])) {
         $url = "empresa.php?id=$id_navbar";  // ← USA ID DA NAVBAR, NÃO DA PÁGINA
         idu_sql("UPDATE navbar SET url = ? WHERE id = ?", [$url, $id_navbar]);
 
-        $mensagem_sucesso = "Nova página adicionada com sucesso!";
-        $id = $id_pagina;
+        // Guardar mensagem e redirecionar para a página de origem
+        $_SESSION['mensagem_sucesso'] = "Nova página adicionada com sucesso!";
+        header("Location: editar_empresa.php");
+        exit;
     }
 }
+
+
+
 
 require_once "components/header.php";
 ?>
@@ -71,9 +79,11 @@ require_once "components/header.php";
 <div class="caixa">
     <h3><?= $id ? "Editar Página" : "Adicionar Nova Página" ?></h3>
 
-    <?php if ($mensagem_sucesso): ?>
-        <div class="alert alert-success"><?= htmlspecialchars($mensagem_sucesso) ?></div>
+    <?php if (!empty($_SESSION['mensagem_sucesso'])): ?>
+        <div class="alert alert-success"><?= htmlspecialchars($_SESSION['mensagem_sucesso']) ?></div>
+        <?php unset($_SESSION['mensagem_sucesso']); ?>
     <?php endif; ?>
+
 
     <form method="post">
         <div class="mb-3">

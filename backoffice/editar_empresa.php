@@ -5,16 +5,29 @@ $pagina = "editar_empresa";
 
 if (isset($_POST['delete_id'])) {
     $idEliminar = $_POST['delete_id'];
+
+    // Buscar id_navbar correspondente
+    $id_navbar = select_sql("SELECT id_navbar FROM paginas_empresa WHERE id = ?", [$idEliminar])[0]['id_navbar'] ?? null;
+
+    // Eliminar da tabela paginas_empresa
     idu_sql("DELETE FROM paginas_empresa WHERE id = ?", [$idEliminar]);
+
+    // Eliminar também da tabela navbar, se existir
+    if ($id_navbar) {
+        idu_sql("DELETE FROM navbar WHERE id = ?", [$id_navbar]);
+    }
+
     header("Location: editar_empresa.php?sucesso=1");
     exit;
 }
 
+
 $paginas = select_sql("SELECT * FROM paginas_empresa ORDER BY id");
 
 $mensagem_sucesso = '';
-if (isset($_GET['sucesso']) && $_GET['sucesso'] == 1) {
-    $mensagem_sucesso = "Alteração guardada com sucesso!";
+if (!empty($_SESSION['mensagem_sucesso'])) {
+    $mensagem_sucesso = $_SESSION['mensagem_sucesso'];
+    unset($_SESSION['mensagem_sucesso']);
 }
 
 require_once "components/header.php";

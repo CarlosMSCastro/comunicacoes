@@ -9,23 +9,6 @@ body {
 
 
 
-input{
-  text-align:center;
-}
-
-button{
-  background-color:aqua;
-  border-radius:10px;
-  border:1px dashed #4D4D4D;
-  cursor:pointer;
-  transition: 0.2s ease;
-}
-
-
-.tabela {
-  width: 100%;
-  border-collapse: collapse;
-}
 
 
 .active{

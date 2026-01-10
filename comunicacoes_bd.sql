@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 10-Jan-2026 às 05:15
+-- Tempo de geração: 10-Jan-2026 às 18:53
 -- Versão do servidor: 10.4.32-MariaDB
 -- versão do PHP: 8.2.12
 
@@ -20,6 +20,34 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `comunicacoes_bd`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `cabecalhos`
+--
+
+CREATE TABLE `cabecalhos` (
+  `id` int(11) NOT NULL,
+  `tipo_pagina` varchar(50) NOT NULL,
+  `imagem` varchar(255) NOT NULL,
+  `ativo` tinyint(1) NOT NULL DEFAULT 1,
+  `ordem` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Extraindo dados da tabela `cabecalhos`
+--
+
+INSERT INTO `cabecalhos` (`id`, `tipo_pagina`, `imagem`, `ativo`, `ordem`) VALUES
+(1, 'empresa', 'http://localhost/comunicacoes/backoffice/uploads/cabecalho_empresa.png', 1, 1),
+(2, 'destaques', 'http://localhost/comunicacoes/backoffice/uploads/cabecalho_destaque.png', 1, 1),
+(3, 'noticias e eventos', 'http://localhost/comunicacoes/backoffice/uploads/cabecalho_noticias_e_eventos.png', 1, 1),
+(4, 'solucoes', 'http://localhost/comunicacoes/backoffice/uploads/cabecalho_solucoes.png', 1, 1),
+(5, 'inovacoes e tecnologia', 'http://localhost/comunicacoes/backoffice/uploads/cabecalho_inovacao_e_tecnologia.png', 1, 1),
+(6, 'noticias e evento', 'http://localhost/comunicacoes/backoffice/uploads/cabecalho_noticia.png', 1, 1),
+(7, 'contactos', 'http://localhost/comunicacoes/backoffice/uploads/cabecalho_contactos.png', 1, 1),
+(8, 'parceiros', 'http://localhost/comunicacoes/backoffice/uploads/cabecalho_parceiros.png', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -103,7 +131,7 @@ CREATE TABLE `colaboradores` (
 --
 
 INSERT INTO `colaboradores` (`id`, `username`, `password`, `nome`, `data_ultimo_acesso`) VALUES
-(1, 'admin', '$2y$10$ZYjApfjjUBens8/zaW/0y.Sv/e0SvYIXlUhj3ybxddP0sMEwFs3Qm', 'Administrador', '18:39:58 - 09/01/2026');
+(1, 'admin', '$2y$10$ZYjApfjjUBens8/zaW/0y.Sv/e0SvYIXlUhj3ybxddP0sMEwFs3Qm', 'Administrador', '12:39:46 - 10/01/2026');
 
 -- --------------------------------------------------------
 
@@ -232,14 +260,14 @@ CREATE TABLE `headers` (
 --
 
 INSERT INTO `headers` (`id`, `tipo_pagina`, `imagem`, `ativo`, `ordem`) VALUES
-(1, 'empresa', 'http://localhost/comunicacoes/backoffice/uploads/cabecalho_noticias_e_eventos.png', 1, 1),
+(1, 'empresa', 'http://localhost/comunicacoes/backoffice/uploads/cabecalho_empresa.png', 1, 1),
 (2, 'destaques', 'http://localhost/comunicacoes/backoffice/uploads/cabecalho_destaque.png', 1, 1),
 (3, 'noticias e eventos', 'http://localhost/comunicacoes/backoffice/uploads/cabecalho_noticias_e_eventos.png', 1, 1),
 (4, 'solucoes', 'http://localhost/comunicacoes/backoffice/uploads/cabecalho_solucoes.png', 1, 1),
 (5, 'inovacoes e tecnologia', 'http://localhost/comunicacoes/backoffice/uploads/cabecalho_inovacao_e_tecnologia.png', 1, 1),
-(6, 'noticias e evento', 'imagens/headers/cabecalho_noticia.png', 1, 1),
-(7, 'contactos', 'imagens/headers/cabecalho_contactos.png', 1, 1),
-(8, 'parceiros', 'imagens/headers/cabecalho_parceiros.png', 1, 1);
+(6, 'noticias e evento', 'http://localhost/comunicacoes/backoffice/uploads/cabecalho_noticia.png', 1, 1),
+(7, 'contactos', 'http://localhost/comunicacoes/backoffice/uploads/cabecalho_contactos.png', 1, 1),
+(8, 'parceiros', 'http://localhost/comunicacoes/backoffice/uploads/cabecalho_parceiros.png', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -259,7 +287,7 @@ CREATE TABLE `home_conteudo` (
 --
 
 INSERT INTO `home_conteudo` (`id`, `titulo_h1`, `titulo_h2`, `texto`) VALUES
-(1, 'Bem-vindo à Comunicações', 'O seu Parceiro Tecnológico de Excelência', '<p>A TA Comunicações é uma empresa especializada em fornecer soluções integradas de internet e comunicações, que endereça clientes do segmento Corporate.&nbsp;Há mais de 28 anos que trabalha arduamente no sentido de se consolidar enquanto parceiro tecnológico, potenciando a presença dos seus clientes no mercado, através de soluções personalizadas que alavancam as receitas e reduzem os custos.Com representação das melhores marcas e vasta experiência, posiciona-se como um fornecedor global de telecomunicações, comprometido com a prestação de um serviço de excelência, por via de uma estratégia assente na formação contínua dos seus colaboradores. A TA Comunicações privilegia as relações assentes na confiança e no conhecimento, permitindo uma gestão e apoio ao cliente que se diferencia no mercado tecnológico.</p>');
+(1, 'Bem-vindo à Comunicações', 'O seu Parceiro Tecnológico de Excelência', 'A TA Comunicações é uma empresa especializada em fornecer soluções integradas de internet e comunicações, que endereça clientes do segmento Corporate.&nbsp;Há mais de 28 anos que trabalha arduamente no sentido de se consolidar enquanto parceiro tecnológico, potenciando a presença dos seus clientes no mercado, através de soluções personalizadas que alavancam as receitas e reduzem os custos .Com representação das melhores marcas e vasta experiência, posiciona-se como um fornecedor global de telecomunicações, comprometido com a prestação de um serviço de excelência, por via de uma estratégia assente na formação contínua dos seus colaboradores. A TA Comunicações privilegia as relações assentes na confiança e no conhecimento, permitindo uma gestão e apoio ao cliente que se diferencia no mercado tecnológico.');
 
 -- --------------------------------------------------------
 
@@ -302,16 +330,7 @@ INSERT INTO `navbar` (`id`, `titulo`, `url`, `pai_id`, `ordem`) VALUES
 (20, 'Inovações e Tecnologia 5', 'inovacoes.php?id=20', 15, 5),
 (21, 'Inovações e Tecnologia 6', 'inovacoes.php?id=21', 15, 6),
 (22, 'Os Nossos Parceiros', 'parceiros.php', NULL, 6),
-(23, 'Contactos', 'contactos.php', NULL, 7),
-(41, 'asd', '', 7, 1),
-(42, 'asd', '', 6, 1),
-(45, 'asd', '', 6, 2),
-(46, 'asd', '', 6, 3),
-(47, 'asd', '', 6, 4),
-(48, 'asd', '', 7, 2),
-(49, 'Data Center - Tecnologia e Inovação para 2022', '', 7, 3),
-(50, 'Data Center - Tecnologia e Inovação para 2022', '', 7, 4),
-(51, 'dsafda', '', 6, 5);
+(23, 'Contactos', 'contactos.php', NULL, 7);
 
 -- --------------------------------------------------------
 
@@ -419,6 +438,12 @@ INSERT INTO `parceiros` (`id`, `nome`, `imagem_grande`, `imagem_pequena`) VALUES
 --
 
 --
+-- Índices para tabela `cabecalhos`
+--
+ALTER TABLE `cabecalhos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `carousel2`
 --
 ALTER TABLE `carousel2`
@@ -511,6 +536,12 @@ ALTER TABLE `parceiros`
 --
 
 --
+-- AUTO_INCREMENT de tabela `cabecalhos`
+--
+ALTER TABLE `cabecalhos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT de tabela `carousel2`
 --
 ALTER TABLE `carousel2`
@@ -520,7 +551,7 @@ ALTER TABLE `carousel2`
 -- AUTO_INCREMENT de tabela `carousel_topo`
 --
 ALTER TABLE `carousel_topo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de tabela `colaboradores`
@@ -568,13 +599,13 @@ ALTER TABLE `home_conteudo`
 -- AUTO_INCREMENT de tabela `navbar`
 --
 ALTER TABLE `navbar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT de tabela `paginas_empresa`
 --
 ALTER TABLE `paginas_empresa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de tabela `paginas_inovacoes`

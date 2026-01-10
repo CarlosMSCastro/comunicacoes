@@ -164,7 +164,10 @@ require_once "components/header.php";
         </div>
 
         <input type="hidden" name="banner" id="banner" value="<?= htmlspecialchars($bannerAtual) ?>">
-
+                 <!-- BOTÃO GUARDAR -->
+        <div class="d-flex justify-content-end border-top pt-3 mt-4">
+          <button type="submit" name="guardar_banner" class="btn btn-dark btn-lg px-5">Guardar Banner</button>
+        </div>             
       </form>
     </div>
 
@@ -545,7 +548,7 @@ function atualizarPreview(url) {
   const container = document.getElementById('preview-container');
   if (url) {
     container.innerHTML = `
-      <img src="../${url}" class="img-fluid rounded shadow"">
+      <img src="../${url}" class="img-fluid rounded shadow" style="max-height: 250px;">
     `;
   } else {
     container.innerHTML = '<div class="text-muted">Nenhuma imagem selecionada</div>';

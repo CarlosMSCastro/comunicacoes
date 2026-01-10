@@ -3,19 +3,16 @@ require_once "bootstrap.php";
 verificar_login();
 $pagina = "editar_empresa";
 
-// ====== Atualizar banner global tipo 'empresa' ======
 $headerEmpresa = select_sql("SELECT * FROM headers WHERE tipo_pagina = 'empresa' LIMIT 1")[0] ?? null;
 $bannerAtual = $headerEmpresa['imagem'] ?? '';
 
 if (isset($_POST['guardar_banner'])) {
     $novoBanner = $_POST['banner'] ?? '';
-
     if ($headerEmpresa) {
         idu_sql("UPDATE headers SET imagem = ? WHERE tipo_pagina = 'empresa'", [$novoBanner]);
     } else {
         idu_sql("INSERT INTO headers (tipo_pagina, imagem, ativo, ordem) VALUES (?, ?, 1, 1)", ['empresa', $novoBanner]);
     }
-
     $_SESSION['mensagem_sucesso'] = "Banner atualizado com sucesso!";
     header("Location: editar_empresa.php");
     exit;
@@ -24,18 +21,11 @@ if (isset($_POST['guardar_banner'])) {
 // ====== Eliminar página ======
 if (isset($_POST['delete_id'])) {
     $idEliminar = $_POST['delete_id'];
-
-    // Buscar id_navbar correspondente
     $id_navbar = select_sql("SELECT id_navbar FROM paginas_empresa WHERE id = ?", [$idEliminar])[0]['id_navbar'] ?? null;
-
-    // Eliminar da tabela paginas_empresa
     idu_sql("DELETE FROM paginas_empresa WHERE id = ?", [$idEliminar]);
-
-    // Eliminar também da tabela navbar, se existir
     if ($id_navbar) {
         idu_sql("DELETE FROM navbar WHERE id = ?", [$id_navbar]);
     }
-
     $_SESSION['mensagem_sucesso'] = "Página eliminada com sucesso!";
     header("Location: editar_empresa.php");
     exit;
@@ -44,13 +34,11 @@ if (isset($_POST['delete_id'])) {
 // ====== Buscar páginas ======
 $paginas = select_sql("SELECT * FROM paginas_empresa ORDER BY id");
 
-// ====== Mensagem de sucesso via sessão ======
 $mensagem_sucesso = '';
 if (!empty($_SESSION['mensagem_sucesso'])) {
     $mensagem_sucesso = $_SESSION['mensagem_sucesso'];
     unset($_SESSION['mensagem_sucesso']);
 }
-
 require_once "components/header.php";
 ?>
 
@@ -96,8 +84,6 @@ require_once "components/header.php";
         document.getElementById('banner').value = url;
     }
     </script>
-
-
 
     <table class="table table-bordered align-middle text-start">
         <thead>

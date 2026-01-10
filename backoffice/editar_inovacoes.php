@@ -1,37 +1,37 @@
 <?php
 require_once "bootstrap.php";
 verificar_login();
-$pagina = "editar_solucoes";
+$pagina = "editar_inovacoes";
 
 
-$headerSolucoes = select_sql("SELECT * FROM headers WHERE tipo_pagina = 'solucoes' LIMIT 1")[0] ?? null;
+$headerSolucoes = select_sql("SELECT * FROM headers WHERE tipo_pagina = 'inovacoes e tecnologia' LIMIT 1")[0] ?? null;
 $bannerAtual = $headerSolucoes['imagem'] ?? '';
 if (isset($_POST['guardar_banner'])) {
     $novoBanner = $_POST['banner'] ?? '';
     if ($headerSolucoes) {
-      idu_sql("UPDATE headers SET imagem = ? WHERE tipo_pagina = 'solucoes'",[$novoBanner]);
+        idu_sql("UPDATE headers SET imagem = ? WHERE tipo_pagina = 'inovacoes e tecnologia'",[$novoBanner]);
     } else {
-      idu_sql("INSERT INTO headers (tipo_pagina, imagem, ativo, ordem)VALUES ('solucoes', ?, 1, 1)",[$novoBanner]);
+        idu_sql("INSERT INTO headers (tipo_pagina, imagem, ativo, ordem)VALUES ('inovacoes e tecnologia', ?, 1, 1)",[$novoBanner]);
     }
-    $_SESSION['mensagem_sucesso'] = "Banner de Soluções atualizado com sucesso!";
-    header("Location: editar_solucoes.php");
+    $_SESSION['mensagem_sucesso'] = "Banner de Inovações e Tecnologia atualizado com sucesso!";
+    header("Location: editar_inovacoes.php");
     exit;
 }
 
 /* ====== Eliminar página ====== */
 if (isset($_POST['delete_id'])) {
     $idEliminar = $_POST['delete_id'];
-    $id_navbar = select_sql("SELECT id_navbar FROM paginas_solucoes WHERE id = ?",[$idEliminar])[0]['id_navbar'] ?? null;
-    idu_sql("DELETE FROM paginas_solucoes WHERE id = ?", [$idEliminar]);
+    $id_navbar = select_sql("SELECT id_navbar FROM paginas_inovacoes WHERE id = ?",[$idEliminar])[0]['id_navbar'] ?? null;
+    idu_sql("DELETE FROM paginas_inovacoes WHERE id = ?", [$idEliminar]);
     if ($id_navbar) {
         idu_sql("DELETE FROM navbar WHERE id = ?", [$id_navbar]);
     }
-    $_SESSION['mensagem_sucesso'] = "Página de Soluções eliminada com sucesso!";
-    header("Location: editar_solucoes.php");
+    $_SESSION['mensagem_sucesso'] = "Página de Inovações e Tecnologia eliminada com sucesso!";
+    header("Location: editar_inovacoes.php");
     exit;
 }
 
-$paginas = select_sql("SELECT * FROM paginas_solucoes ORDER BY id");
+$paginas = select_sql("SELECT * FROM paginas_inovacoes ORDER BY id");
 
 $mensagem_sucesso = '';
 if (!empty($_SESSION['mensagem_sucesso'])) {
@@ -42,7 +42,7 @@ require_once "components/header.php";
 ?>
 
 <div class="caixa">
-    <h3>Páginas Soluções</h3>
+    <h3>Páginas Inovações e Tecnologia</h3>
 
     <?php if ($mensagem_sucesso): ?>
         <div class="alert alert-success"><?= htmlspecialchars($mensagem_sucesso) ?></div>
@@ -109,13 +109,13 @@ require_once "components/header.php";
                 </td>
 
                 <td>
-                    <a href="editar_conteudo_solucoes.php?id=<?= $p['id'] ?>" class="btn btn-dark btn-sm">
+                    <a href="editar_conteudo_inovacoes.php?id=<?= $p['id'] ?>" class="btn btn-dark btn-sm">
                         Editar
                     </a>
 
                     <form method="post" style="display:inline;">
                         <input type="hidden" name="delete_id" value="<?= $p['id'] ?>">
-                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Eliminar esta solução?');">
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Eliminar esta página?');">
                             Eliminar
                         </button>
                     </form>
@@ -125,8 +125,8 @@ require_once "components/header.php";
         </tbody>
     </table>
     <div class="mb-3">
-        <a href="editar_conteudo_solucoes.php" class="btn btn-dark">
-            Adicionar Nova Solução
+        <a href="editar_conteudo_inovacoes.php" class="btn btn-dark">
+            Adicionar Nova Página
         </a>
     </div>
 

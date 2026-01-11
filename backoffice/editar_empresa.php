@@ -3,7 +3,6 @@ require_once "bootstrap.php";
 verificar_login();
 $pagina = "editar_empresa";
 
-
 $banners = select_sql("SELECT * FROM cabecalhos ORDER BY id DESC") ?? [];
 $headerEmpresa = select_sql("SELECT * FROM headers WHERE tipo_pagina = 'empresa' LIMIT 1")[0] ?? null;
 $bannerAtual = $headerEmpresa['imagem'] ?? '';
@@ -30,16 +29,13 @@ if (isset($_POST['salvar_pagina'])) {
     
     if ($id) {
         // EDITAR página existente
-        idu_sql("UPDATE paginas_empresa SET titulo_h1 = ?, texto = ? WHERE id = ?", 
-                [$novoTitulo, $novoTexto, $id]);
-        
+        idu_sql("UPDATE paginas_empresa SET titulo_h1 = ?, texto = ? WHERE id = ?", [$novoTitulo, $novoTexto, $id]);        
         // Atualizar navbar
         $id_navbar = select_sql("SELECT id_navbar FROM paginas_empresa WHERE id = ?", [$id])[0]['id_navbar'] ?? null;
         if ($id_navbar) {
             $url = "empresa.php?id=$id_navbar";
             idu_sql("UPDATE navbar SET titulo = ?, url = ? WHERE id = ?", [$novoTitulo, $url, $id_navbar]);
-        }
-        
+        }       
         $_SESSION['mensagem_sucesso'] = "Página atualizada com sucesso!";
         
     } else {
@@ -86,7 +82,6 @@ if (isset($_POST['delete_id'])) {
     exit;
 }
 
-// ====== Mensagem de Sucesso ======
 $mensagem_sucesso = '';
 if (!empty($_SESSION['mensagem_sucesso'])) {
     $mensagem_sucesso = $_SESSION['mensagem_sucesso'];
@@ -158,9 +153,7 @@ require_once "components/header.php";
                 <?php foreach($banners as $b):
                   $isSelected = ($b['imagem'] ?? '') === $bannerAtual;
                 ?>
-                <div class="card shadow-sm <?= $isSelected ? 'border-success border-3' : '' ?>" 
-                    style="width: 160px; cursor: pointer;"
-                    onclick="selecionarBanner('<?= htmlspecialchars($b['imagem'], ENT_QUOTES) ?>', this)">
+                <div class="card shadow-sm <?= $isSelected ? 'border-success border-3' : '' ?>" style="width: 160px; cursor: pointer;" onclick="selecionarBanner('<?= htmlspecialchars($b['imagem'], ENT_QUOTES) ?>', this)">
                   <img src="<?= htmlspecialchars($b['imagem']) ?>" class="card-img-top" style="height: 120px; object-fit: cover;">
                   <div class="card-body p-2 text-center">
                     <?php if($isSelected): ?>
@@ -179,7 +172,7 @@ require_once "components/header.php";
         </div>
 
         <input type="hidden" name="banner" id="banner" value="<?= htmlspecialchars($bannerAtual) ?>">
-                         <!-- BOTÃO GUARDAR -->
+        <!-- BOTÃO GUARDAR -->
         <div class="d-flex justify-content-end border-top pt-3 mt-4">
           <button type="submit" name="guardar_banner" class="btn btn-dark btn-lg px-5">Guardar Banner</button>
         </div>      
@@ -230,9 +223,7 @@ require_once "components/header.php";
                     </p>
 
                     <div class="d-flex gap-2 flex-wrap mt-2">
-                      <button type="button" 
-                              class="btn btn-dark btn-sm" 
-                              onclick="abrirModalEdicao(<?= htmlspecialchars(json_encode($paginaItem), ENT_QUOTES) ?>)">
+                      <button type="button" class="btn btn-dark btn-sm" onclick="abrirModalEdicao(<?= htmlspecialchars(json_encode($paginaItem), ENT_QUOTES) ?>)">
                         Editar
                       </button>
 
@@ -277,7 +268,7 @@ require_once "components/header.php";
 
           <div class="mb-3">
             <label class="form-label fw-bold">Texto</label>
-            <textarea name="texto" id="modal-texto" class="form-control" rows="10"></textarea>
+            <textarea name="texto" id="modal-texto" class="form-control ckeditor" rows="10"></textarea>
           </div>
         </div>
         <div class="modal-footer">
@@ -301,59 +292,25 @@ require_once "components/header.php";
   </div>
 </div>
 
-<script>
-let editorModal = null;
 
-//EDITAR página existente
+<script>
 function abrirModalEdicao(pagina) {
-  document.getElementById('modalTitulo').textContent = 'Editar Página';
   document.getElementById('modal-id').value = pagina.id;
   document.getElementById('modal-titulo-h1').value = pagina.titulo_h1 || '';
+  document.getElementById('modal-texto').value = pagina.texto || '';
   
-  const textarea = document.getElementById('modal-texto');
-  textarea.value = pagina.texto || '';
-  
-  // Inicializa CKEditor
-  if (!editorModal) {
-    ClassicEditor.create(textarea)
-      .then(editor => {
-        editorModal = editor;
-        editor.setData(pagina.texto || '');
-      })
-      .catch(error => console.error(error));
-  } else {
-    editorModal.setData(pagina.texto || '');
-  }
-  
-  const modal = new bootstrap.Modal(document.getElementById('modalEdicao'));
-  modal.show();
+  new bootstrap.Modal(document.getElementById('modalEdicao')).show();
 }
 
-// CRIAR nova página
 function abrirModalNovaPagina() {
-  document.getElementById('modalTitulo').textContent = 'Adicionar Nova Página';
   document.getElementById('modal-id').value = ''; 
   document.getElementById('modal-titulo-h1').value = '';
+  document.getElementById('modal-texto').value = '';
   
-  const textarea = document.getElementById('modal-texto');
-  textarea.value = '';
-  
-  // Inicializa CKEditor
-  if (!editorModal) {
-    ClassicEditor.create(textarea)
-      .then(editor => {
-        editorModal = editor;
-        editor.setData('');
-      })
-      .catch(error => console.error(error));
-  } else {
-    editorModal.setData('');
-  }
-  
-  const modal = new bootstrap.Modal(document.getElementById('modalEdicao'));
-  modal.show();
+  new bootstrap.Modal(document.getElementById('modalEdicao')).show();
 }
 </script>
+
 
 <script>
 function selecionarBanner(imagemUrl, elemento) {

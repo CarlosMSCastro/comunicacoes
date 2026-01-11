@@ -48,7 +48,7 @@ if(!empty($_POST)){
                 <h2 class="text-center mb-4 fw-bold">Login</h2>
                 
                 <?php if(!empty($erro)): ?>
-                  <div class="alert alert-danger fw-bold" role="alert">
+                  <div class="alert alert-danger fw-bold">
                     <?php echo $erro; ?>
                   </div>
                 <?php endif; ?>

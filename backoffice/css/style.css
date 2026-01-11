@@ -1,21 +1,14 @@
 body {
   background-image: url('../imagens/fundo.jpg');
-  background-size: contain;
   background-repeat: repeat;
   background-attachment: fixed;
   margin: 0;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
-
-
-
-
-
 .active{
   color:dodgerblue !important;
   transform:scale(110%);
 }
-
 a:hover{
   transform:scale(116%);
 }
@@ -23,7 +16,11 @@ p.legenda{
   font-size:12px !important;
   text-align:left !important;
 }
-
 .removerpaddingtop{
   margin-top: -50px;
+}
+
+.galeria{
+  transform:scale(88%);
+  margin-top:-100px;
 }

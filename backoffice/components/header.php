@@ -9,9 +9,10 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
-  <script src="js/ckeditor-init.js"></script>
-  <script src="js/script.js"></script>
+  <script src="https://cdn.ckeditor.com/ckeditor5/43.3.1/ckeditor5.umd.js"></script>
+  <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.3.1/ckeditor5.css" />
+  <script src="/comunicacoes/backoffice/js/ckeditor_config.js"></script>
+
 </head>
 <body class="d-flex flex-column min-vh-100 pt-5">
 
@@ -20,7 +21,7 @@
 <div class="container-fluid">
   <div class="row">
 
-      <!-- navbar -->
+  <!-- navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg fixed-top">
     <div class="container-fluid">
       <a class="navbar-brand fw-bold" href="home.php">Backoffice</a>
@@ -63,7 +64,5 @@
     </div>
   </nav>
 
-
-  <!-- ÁREA DE CONTEÚDO -->
   <main class="col-12 flex-grow-1">
 <?php endif; ?>

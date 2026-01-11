@@ -373,19 +373,23 @@ function abrirModalEdicao(pagina) {
   document.getElementById('modal-titulo-h1').value = pagina.titulo_h1 || '';
   document.getElementById('modal-imagem').value = pagina.imagem || '';
 
-  // Preview da imagem
   atualizarPreview(pagina.imagem || '');
 
-  // Remover seleção anterior da galeria
   document.querySelectorAll('.imagem-galeria-item').forEach(item => {
     item.classList.remove('border-success', 'border-3');
   });
 
-  const textarea = document.getElementById('modal-texto');
-  textarea.value = pagina.texto || '';
-
-
   new bootstrap.Modal(document.getElementById('modalEdicao')).show();
+
+  // Aguarda CKEditor inicializar
+  setTimeout(() => {
+    const textarea = document.getElementById('modal-texto');
+    if (textarea.editorInstance) {
+      textarea.editorInstance.setData(pagina.texto || '');
+    } else {
+      textarea.value = pagina.texto || '';
+    }
+  }, 300);
 }
 
 // CRIAR nova página
@@ -395,19 +399,22 @@ function abrirModalNovaPagina() {
   document.getElementById('modal-titulo-h1').value = '';
   document.getElementById('modal-imagem').value = '';
 
-  // Limpar preview
   document.getElementById('preview-container').innerHTML = '<div class="text-muted">Nenhuma imagem selecionada</div>';
 
-  // Remover seleção da galeria
   document.querySelectorAll('.imagem-galeria-item').forEach(item => {
     item.classList.remove('border-success', 'border-3');
   });
 
-  const textarea = document.getElementById('modal-texto');
-  textarea.value = '';
-
-
   new bootstrap.Modal(document.getElementById('modalEdicao')).show();
+
+  setTimeout(() => {
+    const textarea = document.getElementById('modal-texto');
+    if (textarea.editorInstance) {
+      textarea.editorInstance.setData('');
+    } else {
+      textarea.value = '';
+    }
+  }, 300);
 }
 
 // Selecionar banner

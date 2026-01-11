@@ -1,6 +1,4 @@
-p{
-    font-size:18px;
-}
+
 body{
     max-width:1600px;
     margin:0 auto;
@@ -573,9 +571,10 @@ footer{
 .pagination-btn:hover{color: #fff !important;}
 .container_destaque{
     width:80%;
+    font-size:22px !important;
 }
 .card-text{
-    font-size:20px;
+    font-size:20px !important;
 }
 .imgsolucoes{
     height:500px !important;
@@ -588,8 +587,6 @@ footer{
     color: #4D4D4D;
 }
 .textoempresa{
-    text-align: justify;
-    font-size: 22px;
     color: #4D4D4D;
 }
 .parceiros{
@@ -655,6 +652,7 @@ h5.titulocontactos{
 .caixabotaoenviar{
     margin-top:-61px;
 }
+
 @media (max-width:1400px) and (min-width :992px){
     .caixabotaoenviar{
         margin-top:61px;

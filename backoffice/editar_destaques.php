@@ -3,12 +3,12 @@ require_once "bootstrap.php";
 verificar_login();
 $pagina = "editar_destaques";
 
-// ====== Paginação ======
+// Paginação 
 $itensPorPagina = 6;
 $paginaAtual = $_GET['p'] ?? 1;
 $offset = ($paginaAtual - 1) * $itensPorPagina;
 
-// ====== Buscar dados ======
+// Dados 
 $banners = select_sql("SELECT * FROM cabecalhos ORDER BY id DESC") ?? [];
 $headerDestaques = select_sql("SELECT * FROM headers WHERE tipo_pagina = 'destaques' LIMIT 1")[0] ?? null;
 $bannerAtual = $headerDestaques['imagem'] ?? '';
@@ -18,7 +18,7 @@ $totalDestaques = select_sql("SELECT COUNT(*) as total FROM carousel2")[0]['tota
 $totalPaginas = ceil($totalDestaques / $itensPorPagina);
 $paginas = select_sql("SELECT * FROM carousel2 ORDER BY ativo DESC, id DESC LIMIT ? OFFSET ?", [$itensPorPagina, $offset]);
 
-// ====== Processar POST: Guardar Banner ======
+// Guardar Banner 
 if (isset($_POST['guardar_banner'])) {
     $novoBanner = $_POST['banner'] ?? '';
     if ($headerDestaques) {
@@ -31,7 +31,7 @@ if (isset($_POST['guardar_banner'])) {
     exit;
 }
 
-// ====== Processar POST: Criar/Editar Destaque ======
+// Criar/Editar Destaque 
 if (isset($_POST['salvar_destaque'])) {
     $id = $_POST['id'] ?? null;
     $titulo = strip_tags($_POST['titulo'] ?? '');
@@ -40,22 +40,19 @@ if (isset($_POST['salvar_destaque'])) {
     $imagem = $_POST['imagem'] ?? '';
     
     if ($id) {
-        // EDITAR destaque existente
-        idu_sql("UPDATE carousel2 SET titulo = ?, texto = ?, data = ?, imagem = ? WHERE id = ?", 
-                [$titulo, $texto, $data, $imagem, $id]);
+        // EDITAR 
+        idu_sql("UPDATE carousel2 SET titulo = ?, texto = ?, data = ?, imagem = ? WHERE id = ?", [$titulo, $texto, $data, $imagem, $id]);
         $_SESSION['mensagem_sucesso'] = "Destaque atualizado com sucesso!";
     } else {
-        // CRIAR novo destaque
-        idu_sql("INSERT INTO carousel2 (titulo, texto, data, imagem, ativo) VALUES (?, ?, ?, ?, 1)", 
-                [$titulo, $texto, $data, $imagem]);
+        // CRIAR 
+        idu_sql("INSERT INTO carousel2 (titulo, texto, data, imagem, ativo) VALUES (?, ?, ?, ?, 1)", [$titulo, $texto, $data, $imagem]);
         $_SESSION['mensagem_sucesso'] = "Novo destaque adicionado com sucesso!";
-    }
-    
+    }    
     header("Location: editar_destaques.php");
     exit;
 }
 
-// ====== Processar POST: Toggle Ativo/Inativo ======
+// Toggle Ativo/Inativo
 if (isset($_POST['toggle_id'])) {
     $ativo = isset($_POST['ativo']) ? 1 : 0;
     idu_sql("UPDATE carousel2 SET ativo = ? WHERE id = ?", [$ativo, $_POST['toggle_id']]);
@@ -64,7 +61,7 @@ if (isset($_POST['toggle_id'])) {
     exit;
 }
 
-// ====== Processar POST: Eliminar Destaque ======
+// Eliminar Destaque
 if (isset($_POST['delete_id'])) {
     $idEliminar = $_POST['delete_id'];
     idu_sql("DELETE FROM carousel2 WHERE id = ?", [$idEliminar]);
@@ -73,7 +70,7 @@ if (isset($_POST['delete_id'])) {
     exit;
 }
 
-// ====== Mensagem de Sucesso ======
+// Mensagem de Sucesso 
 $mensagem_sucesso = '';
 if (!empty($_SESSION['mensagem_sucesso'])) {
     $mensagem_sucesso = $_SESSION['mensagem_sucesso'];
@@ -93,20 +90,17 @@ require_once "components/header.php";
   </div>
 <?php endif; ?>
 
-<!-- SEÇÃO: BANNER -->
+<!-- BANNER -->
 <div class="container-fluid py-4">
   <div class="card shadow-lg border-0">
-    
     <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
       <h3 class="mb-0 fw-bold">Banner da Página</h3>
       <button class="btn btn-light btn-sm" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTFM">
         📁 Gerir Ficheiros
       </button>
     </div>
-
     <div class="card-body">
       <form method="post" id="form-banner">
-
         <!-- TABS -->
         <ul class="nav nav-tabs mb-4">
           <li class="nav-item">
@@ -120,27 +114,22 @@ require_once "components/header.php";
             </button>
           </li>
         </ul>
-
         <!-- TAB CONTENT -->
-        <div class="tab-content">
-          
+        <div class="tab-content">      
           <!-- TAB 1: PREVIEW -->
           <div class="tab-pane fade show active pt-2 pb-4" id="tab-preview">
-            <div class="mx-auto">
+            <div class="mx-auto" style="max-width: 85%;">
               <div class="text-center py-4">
                 <img id="banner-preview" src="<?= htmlspecialchars($bannerAtual) ?>" class="img-fluid rounded shadow" style="max-height: 500px;">
               </div>
             </div>
           </div>
-
           <!-- TAB 2: GALERIA -->
           <div class="tab-pane fade py-3" id="tab-galeria">
-            <div class="mx-auto py-2">
-              
+            <div class="mx-auto py-2" style="max-width: 85%;">              
               <div class="alert alert-info mb-4">
                 <strong>Clique numa imagem</strong> para selecionar como banner da página.
               </div>
-
               <div class="d-flex flex-wrap gap-3 justify-content-center">
                 <?php foreach($banners as $b):
                   $isSelected = ($b['imagem'] ?? '') === $bannerAtual;
@@ -157,48 +146,39 @@ require_once "components/header.php";
                 </div>
                 <?php endforeach; ?>
               </div>
-
             </div>
           </div>
-
         </div>
-
         <input type="hidden" name="banner" id="banner" value="<?= htmlspecialchars($bannerAtual) ?>">
         <div class="d-flex justify-content-end border-top pt-3 mt-4">
           <button type="submit" name="guardar_banner" class="btn btn-dark btn-lg px-5">Guardar Banner</button>
         </div>
       </form>
     </div>
-
   </div>
 </div>
 
-<!-- SEÇÃO: DESTAQUES -->
+<!-- DESTAQUES -->
 <div class="container-fluid py-4">
   <div class="card shadow-lg border-0">
-
     <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
       <h3 class="mb-0 fw-bold">Destaques (<?= $totalDestaques ?>)</h3>
       <button type="button" class="btn btn-light btn-sm" onclick="abrirModalNovoDestaque()">
         + Adicionar Novo Destaque
       </button>
     </div>
-
     <div class="card-body">
       <div class="mx-auto" style="max-width: 85%;">
-
         <?php if(empty($paginas)): ?>
           <div class="alert alert-warning">
             <strong>Nenhum destaque criado.</strong>
             Clique em "Adicionar Novo Destaque" para começar.
           </div>
-        <?php else: ?>
-          
+        <?php else: ?>          
           <?php foreach($paginas as $destaque): ?>
             <div class="card shadow-sm mb-3 <?= $destaque['ativo'] ? 'border-success border-2' : 'border-secondary' ?>">
               <div class="card-body p-3">
-                <div class="d-flex gap-3 align-items-start">
-                  
+                <div class="d-flex gap-3 align-items-start">                  
                   <div class="flex-shrink-0">
                     <?php if(!empty($destaque['imagem'])): ?>
                       <img src="../<?= htmlspecialchars($destaque['imagem']) ?>" class="rounded" style="width: 120px; height: 100px; object-fit: cover;">
@@ -208,7 +188,6 @@ require_once "components/header.php";
                       </div>
                     <?php endif; ?>
                   </div>
-
                   <div class="flex-grow-1">
                     <div class="d-flex justify-content-between align-items-start mb-2">
                       <div>
@@ -227,16 +206,19 @@ require_once "components/header.php";
                           </div>
                         </form>
                       </div>
-                    </div>
-                    
+                    </div>                 
                     <p class="text-muted mb-3 small">
                       <?= htmlspecialchars(mb_strimwidth(strip_tags($destaque['texto']), 0, 200, '...')) ?>
                     </p>
-
                     <div class="d-flex gap-2 flex-wrap">
-                      <button type="button" 
-                              class="btn btn-dark btn-sm" 
-                              onclick="abrirModalEdicao(<?= htmlspecialchars(json_encode($destaque), ENT_QUOTES) ?>)">
+                      <?php
+                        // Formata a data para o input type="date" (Y-m-d)
+                        $destaqueFormatado = $destaque;
+                        if (!empty($destaque['data'])) {
+                          $destaqueFormatado['data'] = date('Y-m-d', strtotime($destaque['data']));
+                        }
+                      ?>
+                      <button type="button" class="btn btn-dark btn-sm" onclick="abrirModalEdicao(<?= htmlspecialchars(json_encode($destaqueFormatado), ENT_QUOTES) ?>)">
                         Editar
                       </button>
 
@@ -257,13 +239,11 @@ require_once "components/header.php";
           <!-- PAGINAÇÃO -->
           <?php if($totalPaginas > 1): ?>
             <nav class="mt-4">
-              <ul class="pagination justify-content-center gap-2">
-                
+              <ul class="pagination justify-content-center gap-2">              
                 <!-- Anterior -->
                 <li class="page-item <?= $paginaAtual <= 1 ? 'disabled' : '' ?>">
                   <a class="page-link" href="?p=<?= $paginaAtual - 1 ?>">Anterior</a>
                 </li>
-
                 <!-- Páginas -->
                 <?php for($i = 1; $i <= $totalPaginas; $i++): ?>
                   <?php if($i == 1 || $i == $totalPaginas || abs($i - $paginaAtual) <= 2): ?>
@@ -276,21 +256,16 @@ require_once "components/header.php";
                     </li>
                   <?php endif; ?>
                 <?php endfor; ?>
-
                 <!-- Próxima -->
                 <li class="page-item <?= $paginaAtual >= $totalPaginas ? 'disabled' : '' ?>">
                   <a class="page-link" href="?p=<?= $paginaAtual + 1 ?>">Próxima</a>
                 </li>
-
               </ul>
             </nav>
           <?php endif; ?>
-
         <?php endif; ?>
-
       </div>
     </div>
-
   </div>
 </div>
 
@@ -305,7 +280,6 @@ require_once "components/header.php";
       <form method="post" id="formEdicaoModal">
         <div class="modal-body p-4">
           <input type="hidden" name="id" id="modal-id">
-          
           <div class="row g-3 mb-3">
             <div class="col-md-8">
               <label class="form-label fw-bold">Título</label>
@@ -316,16 +290,14 @@ require_once "components/header.php";
               <input type="date" name="data" id="modal-data" class="form-control form-control-lg" required>
             </div>
           </div>
-
           <div class="mb-3">
             <label class="form-label fw-bold">Texto</label>
-            <textarea name="texto" id="modal-texto" class="form-control" rows="8"></textarea>
+            <textarea name="texto" id="modal-texto" class="form-control ckeditor" rows="8"></textarea>
           </div>
 
-          <!-- SEÇÃO DE IMAGEM MELHORADA -->
+          <!--  IMAGEM -->
           <div class="mb-3">
             <label class="form-label fw-bold">Imagem do Destaque</label>
-            
             <!-- TABS -->
             <ul class="nav nav-tabs mb-3">
               <li class="nav-item">
@@ -340,7 +312,7 @@ require_once "components/header.php";
               </li>
             </ul>
 
-            <!-- TAB CONTENT COM ALTURA FIXA -->
+            <!-- TAB CONTENT -->
             <div class="tab-content border rounded p-3" style="height: 380px; overflow: hidden;">
               
               <!-- TAB 1: PREVIEW -->
@@ -349,15 +321,12 @@ require_once "components/header.php";
                   <div class="text-muted">Nenhuma imagem selecionada</div>
                 </div>
               </div>
-
               <!-- TAB 2: GALERIA COM SCROLL -->
               <div class="tab-pane fade h-100" id="tab-imagem-galeria">
-                <div class="h-100 d-flex flex-column">
-                  
-                  <div class="alert alert-info mb-3 flex-shrink-0">
+                <div class="h-100 d-flex flex-column">            
+                  <div class="alert mx-auto alert-info mb-4 flex-shrink-0">
                     <strong>Clique numa imagem</strong> para selecioná-la para este destaque.
-                  </div>
-                  
+                  </div>                
                   <!-- Container com scroll -->
                   <div class="flex-grow-1" style="overflow-y: auto;">
                     <div class="mx-auto" style="max-width: 85%;">
@@ -381,17 +350,11 @@ require_once "components/header.php";
                         ?>
                       </div>
                     </div>
-                  </div>
-                  
+                  </div>                  
                 </div>
               </div>
-
             </div>
-
-            <!-- Input hidden para guardar o caminho -->
-            <input type="hidden" name="imagem" id="modal-imagem">
-            
-            <!-- Botão para abrir file manager (opcional) -->
+            <input type="hidden" name="imagem" id="modal-imagem">           
             <div class="mt-2">
               <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTFM">
                 📁 Gerir Ficheiros / Upload
@@ -421,8 +384,6 @@ require_once "components/header.php";
 </div>
 
 <script>
-let editorModal = null;
-
 // Função para EDITAR destaque existente
 function abrirModalEdicao(destaque) {
   document.getElementById('modalTitulo').textContent = 'Editar Destaque';
@@ -431,53 +392,20 @@ function abrirModalEdicao(destaque) {
   document.getElementById('modal-data').value = destaque.data || '';
   document.getElementById('modal-imagem').value = destaque.imagem || '';
   
-  // Preview da imagem
   atualizarPreview(destaque.imagem || '');
-  
-  const textarea = document.getElementById('modal-texto');
-  textarea.value = destaque.texto || '';
-  
-  // Inicializa CKEditor COM CONFIGURAÇÃO
-  if (!editorModal) {
-    ClassicEditor.create(textarea, {
-      toolbar: {
-        items: [
-          'heading', '|',
-          'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', '|',
-          'bold', 'italic', 'underline', 'strikethrough', '|',
-          'alignment', '|',
-          'numberedList', 'bulletedList', '|',
-          'indent', 'outdent', '|',
-          'link', 'blockQuote', 'insertTable', '|',
-          'undo', 'redo'
-        ],
-        shouldNotGroupWhenFull: true
-      },
-      fontSize: {
-        options: [9, 11, 13, 'default', 17, 19, 21, 25, 29, 33],
-        supportAllValues: true
-      },
-      fontFamily: {
-        options: [
-          'default',
-          'Arial, Helvetica, sans-serif',
-          'Georgia, serif',
-          'Times New Roman, Times, serif',
-          'Verdana, Geneva, sans-serif'
-        ]
-      }
-    })
-    .then(editor => {
-      editorModal = editor;
-      editor.setData(destaque.texto || '');
-    })
-    .catch(error => console.error(error));
-  } else {
-    editorModal.setData(destaque.texto || '');
-  }
   
   const modal = new bootstrap.Modal(document.getElementById('modalEdicao'));
   modal.show();
+
+  // Aguarda CKEditor inicializar
+  setTimeout(() => {
+    const textarea = document.getElementById('modal-texto');
+    if (textarea.editorInstance) {
+      textarea.editorInstance.setData(destaque.texto || '');
+    } else {
+      textarea.value = destaque.texto || '';
+    }
+  }, 300);
 }
 
 // Função para CRIAR novo destaque
@@ -488,58 +416,23 @@ function abrirModalNovoDestaque() {
   document.getElementById('modal-data').value = '';
   document.getElementById('modal-imagem').value = '';
   
-  // Limpar preview
   document.getElementById('preview-container').innerHTML = '<div class="text-muted">Nenhuma imagem selecionada</div>';
   
-  // Remover seleção da galeria
   document.querySelectorAll('.imagem-galeria-item').forEach(item => {
     item.classList.remove('border-success', 'border-3');
   });
   
-  const textarea = document.getElementById('modal-texto');
-  textarea.value = '';
-  
-  // Inicializa CKEditor COM CONFIGURAÇÃO
-  if (!editorModal) {
-    ClassicEditor.create(textarea, {
-      toolbar: {
-        items: [
-          'heading', '|',
-          'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', '|',
-          'bold', 'italic', 'underline', 'strikethrough', '|',
-          'alignment', '|',
-          'numberedList', 'bulletedList', '|',
-          'indent', 'outdent', '|',
-          'link', 'blockQuote', 'insertTable', '|',
-          'undo', 'redo'
-        ],
-        shouldNotGroupWhenFull: true
-      },
-      fontSize: {
-        options: [9, 11, 13, 'default', 17, 19, 21, 25, 29, 33],
-        supportAllValues: true
-      },
-      fontFamily: {
-        options: [
-          'default',
-          'Arial, Helvetica, sans-serif',
-          'Georgia, serif',
-          'Times New Roman, Times, serif',
-          'Verdana, Geneva, sans-serif'
-        ]
-      }
-    })
-    .then(editor => {
-      editorModal = editor;
-      editor.setData('');
-    })
-    .catch(error => console.error(error));
-  } else {
-    editorModal.setData('');
-  }
-  
   const modal = new bootstrap.Modal(document.getElementById('modalEdicao'));
   modal.show();
+
+  setTimeout(() => {
+    const textarea = document.getElementById('modal-texto');
+    if (textarea.editorInstance) {
+      textarea.editorInstance.setData('');
+    } else {
+      textarea.value = '';
+    }
+  }, 300);
 }
 
 // Atualizar preview da imagem

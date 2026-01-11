@@ -17,11 +17,6 @@ $destaque = select_sql("SELECT titulo, imagem, texto FROM carousel2 WHERE id = $
           <?= ucfirst($tipoPagina) ?> – <?= $destaque['titulo'] ?>
         </h1>
       <?php endif; ?>
-        <div class="row">
-          <div class="col-12 col-md-6">
-            <img src="<?= $destaque['imagem'] ?>" alt="<?= htmlspecialchars($destaque['titulo']) ?>" class="img-fluid mt-4">
-          </div>
-        </div>
         <div class="row mt-3">
           <div class="col-12">
             <p class="textomobile">

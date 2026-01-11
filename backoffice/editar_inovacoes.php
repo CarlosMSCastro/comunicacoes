@@ -380,16 +380,30 @@ function abrirModalEdicao(pagina) {
   document.getElementById('modal-titulo-h1').value = pagina.titulo_h1 || '';
   document.getElementById('modal-imagem').value = pagina.imagem || '';
 
-  // Preview da imagem
   atualizarPreview(pagina.imagem || '');
 
-  // Remover seleção anterior da galeria
   document.querySelectorAll('.imagem-galeria-item').forEach(item => {
     item.classList.remove('border-success', 'border-3');
   });
 
-
   new bootstrap.Modal(document.getElementById('modalEdicao')).show();
+
+  setTimeout(() => {
+    const textarea1 = document.getElementById('modal-texto');
+    const textarea2 = document.getElementById('modal-texto-2');
+    
+    if (textarea1.editorInstance) {
+      textarea1.editorInstance.setData(pagina.texto || '');
+    } else {
+      textarea1.value = pagina.texto || '';
+    }
+    
+    if (textarea2.editorInstance) {
+      textarea2.editorInstance.setData(pagina.texto_2 || '');
+    } else {
+      textarea2.value = pagina.texto_2 || '';
+    }
+  }, 300);
 }
 
 // CRIAR nova página
@@ -399,25 +413,30 @@ function abrirModalNovaPagina() {
   document.getElementById('modal-titulo-h1').value = '';
   document.getElementById('modal-imagem').value = '';
 
-  // Limpar preview
   document.getElementById('preview-container').innerHTML = '<div class="text-muted">Nenhuma imagem selecionada</div>';
 
-  // Remover seleção da galeria
   document.querySelectorAll('.imagem-galeria-item').forEach(item => {
     item.classList.remove('border-success', 'border-3');
   });
 
-  // TEXTO 1
-  const textarea = document.getElementById('modal-texto');
-  textarea.value = '';
-
-
-  // TEXTO 2
-  const textarea2 = document.getElementById('modal-texto-2');
-  textarea2.value = '';
-
-
   new bootstrap.Modal(document.getElementById('modalEdicao')).show();
+
+  setTimeout(() => {
+    const textarea1 = document.getElementById('modal-texto');
+    const textarea2 = document.getElementById('modal-texto-2');
+    
+    if (textarea1.editorInstance) {
+      textarea1.editorInstance.setData('');
+    } else {
+      textarea1.value = '';
+    }
+    
+    if (textarea2.editorInstance) {
+      textarea2.editorInstance.setData('');
+    } else {
+      textarea2.value = '';
+    }
+  }, 300);
 }
 
 // Selecionar banner

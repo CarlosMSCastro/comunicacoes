@@ -20,6 +20,7 @@ const {
     ImageStyle,
     ImageToolbar,
     ImageUpload,
+    ImageResize,
     SimpleUploadAdapter,
     Alignment
 } = CKEDITOR;
@@ -44,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
             ImageStyle,
             ImageToolbar,
             ImageUpload,
+            ImageResize,
             SimpleUploadAdapter,
             Alignment
         ],
@@ -62,7 +64,32 @@ document.addEventListener('DOMContentLoaded', function() {
                 'imageStyle:block',
                 'imageStyle:side',
                 '|',
-                'imageTextAlternative'
+                'imageTextAlternative',
+                '|',
+                'toggleImageCaption'
+            ],
+            resizeUnit: 'px',
+            resizeOptions: [
+                {
+                    name: 'resizeImage:original',
+                    label: 'Original',
+                    value: null
+                },
+                {
+                    name: 'resizeImage:custom',
+                    label: 'Custom',
+                    value: 'custom'
+                },
+                {
+                    name: 'resizeImage:50',
+                    label: '50%',
+                    value: '50'
+                },
+                {
+                    name: 'resizeImage:75',
+                    label: '75%',
+                    value: '75'
+                }
             ]
         },
         simpleUpload: {

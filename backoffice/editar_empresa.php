@@ -297,17 +297,34 @@ require_once "components/header.php";
 function abrirModalEdicao(pagina) {
   document.getElementById('modal-id').value = pagina.id;
   document.getElementById('modal-titulo-h1').value = pagina.titulo_h1 || '';
-  document.getElementById('modal-texto').value = pagina.texto || '';
   
   new bootstrap.Modal(document.getElementById('modalEdicao')).show();
+  
+
+  setTimeout(() => {
+    const textarea = document.getElementById('modal-texto');
+    if (textarea.editorInstance) {
+      textarea.editorInstance.setData(pagina.texto || '');
+    } else {
+      textarea.value = pagina.texto || '';
+    }
+  }, 300);
 }
 
 function abrirModalNovaPagina() {
   document.getElementById('modal-id').value = ''; 
   document.getElementById('modal-titulo-h1').value = '';
-  document.getElementById('modal-texto').value = '';
   
   new bootstrap.Modal(document.getElementById('modalEdicao')).show();
+  
+  setTimeout(() => {
+    const textarea = document.getElementById('modal-texto');
+    if (textarea.editorInstance) {
+      textarea.editorInstance.setData('');
+    } else {
+      textarea.value = '';
+    }
+  }, 300);
 }
 </script>
 

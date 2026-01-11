@@ -1,7 +1,5 @@
 <?php
-/**
- * Uploader para CKEditor 5
- */
+/** Uploader para CKEditor*/
 
 header('Content-Type: application/json');
 

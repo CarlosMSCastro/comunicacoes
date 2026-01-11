@@ -3,10 +3,10 @@ require_once "bootstrap.php";
 verificar_login();
 $pagina = "editar_contactos";
 
-// ====== Buscar dados ======
+// Buscar dados
 $contactos = select_sql("SELECT * FROM contactos LIMIT 1")[0] ?? null;
 
-// ====== Processar POST: Guardar Informações ======
+// Guardar Informações
 if (isset($_POST['guardar_info'])) {
     $morada = $_POST['morada'] ?? '';
     $telefone = $_POST['telefone'] ?? '';
@@ -16,51 +16,34 @@ if (isset($_POST['guardar_info'])) {
     $gps = $_POST['gps'] ?? '';
     
     if ($contactos) {
-        idu_sql(
-            "UPDATE contactos SET morada = ?, telefone = ?, fax = ?, email = ?, nif = ?, gps = ? WHERE id = ?",
-            [$morada, $telefone, $fax, $email, $nif, $gps, $contactos['id']]
-        );
+        idu_sql("UPDATE contactos SET morada = ?, telefone = ?, fax = ?, email = ?, nif = ?, gps = ? WHERE id = ?",[$morada, $telefone, $fax, $email, $nif, $gps, $contactos['id']]);
     } else {
-        idu_sql(
-            "INSERT INTO contactos (morada, telefone, fax, email, nif, gps) VALUES (?, ?, ?, ?, ?, ?)",
-            [$morada, $telefone, $fax, $email, $nif, $gps]
-        );
+        idu_sql("INSERT INTO contactos (morada, telefone, fax, email, nif, gps) VALUES (?, ?, ?, ?, ?, ?)",[$morada, $telefone, $fax, $email, $nif, $gps]);
     }
-    
     $_SESSION['mensagem_sucesso'] = "Informações atualizadas com sucesso!";
     header("Location: editar_contactos.php");
     exit;
 }
-
-// ====== Processar POST: Guardar Mapa ======
+// Guardar Mapa 
 if (isset($_POST['guardar_mapa'])) {
     $mapaUrl = $_POST['mapa_url'] ?? '';
-    
     if ($contactos) {
-        idu_sql(
-            "UPDATE contactos SET gps_iframe_url = ? WHERE id = ?",
-            [$mapaUrl, $contactos['id']]
-        );
+        idu_sql("UPDATE contactos SET gps_iframe_url = ? WHERE id = ?",[$mapaUrl, $contactos['id']]);
     } else {
-        idu_sql(
-            "INSERT INTO contactos (gps_iframe_url) VALUES (?)",
-            [$mapaUrl]
-        );
+        idu_sql("INSERT INTO contactos (gps_iframe_url) VALUES (?)",[$mapaUrl]);
     }
-    
     $_SESSION['mensagem_sucesso'] = "Mapa atualizado com sucesso!";
     header("Location: editar_contactos.php");
     exit;
 }
 
-// ====== Mensagem de Sucesso ======
+//Mensagem de Sucesso 
 $mensagem_sucesso = $_SESSION['mensagem_sucesso'] ?? '';
 unset($_SESSION['mensagem_sucesso']);
 
 require_once "components/header.php";
 ?>
 
-<!-- MENSAGEM DE SUCESSO -->
 <?php if($mensagem_sucesso): ?>
   <div class="container-fluid py-3">
     <div class="alert alert-success fw-bold alert-dismissible fade show" role="alert">
@@ -70,19 +53,15 @@ require_once "components/header.php";
   </div>
 <?php endif; ?>
 
-<!-- SEÇÃO: INFORMAÇÕES DE CONTACTO -->
+<!--INFORMAÇÕES DE CONTACTO -->
 <div class="container-fluid py-4">
   <div class="card shadow-lg border-0">
-    
     <div class="card-header bg-dark text-white">
       <h3 class="mb-0 fw-bold">📍 Informações de Contacto</h3>
     </div>
-
     <div class="card-body">
       <div class="mx-auto" style="max-width: 85%;">
-        
         <form method="post">
-          
           <!-- MORADA -->
           <div class="mb-3">
             <label class="form-label fw-bold">Morada (Sede)</label>
@@ -159,13 +138,7 @@ require_once "components/header.php";
           <!-- URL DO MAPA -->
           <div class="mb-4">
             <label class="form-label fw-bold">URL do Embed do Google Maps</label>
-            <input type="url" 
-                   name="mapa_url" 
-                   id="mapa_url" 
-                   class="form-control" 
-                   value="<?= htmlspecialchars($contactos['gps_iframe_url'] ?? '') ?>" 
-                   placeholder="https://www.google.com/maps/embed?pb=..."
-                   oninput="atualizarPreviewMapa()">
+            <input type="url" name="mapa_url" id="mapa_url" class="form-control" value="<?= htmlspecialchars($contactos['gps_iframe_url'] ?? '') ?>" placeholder="https://www.google.com/maps/embed?pb=..." oninput="atualizarPreviewMapa()">
             <small class="text-muted">Cole aqui o URL do iframe do Google Maps</small>
           </div>
 

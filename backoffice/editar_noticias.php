@@ -3,12 +3,12 @@ require_once "bootstrap.php";
 verificar_login();
 $pagina = "editar_noticias";
 
-// ====== Paginação ======
+// Paginação
 $itensPorPagina = 6;
 $paginaAtual = $_GET['p'] ?? 1;
 $offset = ($paginaAtual - 1) * $itensPorPagina;
 
-// ====== Buscar dados ======
+// Buscar dados
 $banners = select_sql("SELECT * FROM cabecalhos ORDER BY id DESC") ?? [];
 $headerNoticias = select_sql("SELECT * FROM headers WHERE tipo_pagina = 'noticias e eventos' LIMIT 1")[0] ?? null;
 $bannerAtual = $headerNoticias['imagem'] ?? '';
@@ -18,7 +18,7 @@ $totalNoticias = select_sql("SELECT COUNT(*) as total FROM footer_carousel")[0][
 $totalPaginas = ceil($totalNoticias / $itensPorPagina);
 $paginas = select_sql("SELECT * FROM footer_carousel ORDER BY ativo DESC, id DESC LIMIT ? OFFSET ?", [$itensPorPagina, $offset]);
 
-// ====== Processar POST: Guardar Banner ======
+// Guardar Banner 
 if (isset($_POST['guardar_banner'])) {
     $novoBanner = $_POST['banner'] ?? '';
     if ($headerNoticias) {
@@ -31,7 +31,7 @@ if (isset($_POST['guardar_banner'])) {
     exit;
 }
 
-// ====== Processar POST: Criar/Editar Notícia ======
+// Criar/Editar Notícia 
 if (isset($_POST['salvar_noticia'])) {
     $id = $_POST['id'] ?? null;
     $titulo = strip_tags($_POST['titulo'] ?? '');
@@ -41,13 +41,11 @@ if (isset($_POST['salvar_noticia'])) {
     
     if ($id) {
         // EDITAR notícia existente
-        idu_sql("UPDATE footer_carousel SET titulo = ?, texto = ?, data = ?, imagem = ? WHERE id = ?", 
-                [$titulo, $texto, $data, $imagem, $id]);
+        idu_sql("UPDATE footer_carousel SET titulo = ?, texto = ?, data = ?, imagem = ? WHERE id = ?", [$titulo, $texto, $data, $imagem, $id]);
         $_SESSION['mensagem_sucesso'] = "Notícia atualizada com sucesso!";
     } else {
         // CRIAR nova notícia
-        idu_sql("INSERT INTO footer_carousel (titulo, texto, data, imagem, ativo) VALUES (?, ?, ?, ?, 1)", 
-                [$titulo, $texto, $data, $imagem]);
+        idu_sql("INSERT INTO footer_carousel (titulo, texto, data, imagem, ativo) VALUES (?, ?, ?, ?, 1)", [$titulo, $texto, $data, $imagem]);
         $_SESSION['mensagem_sucesso'] = "Nova notícia adicionada com sucesso!";
     }
     
@@ -55,7 +53,7 @@ if (isset($_POST['salvar_noticia'])) {
     exit;
 }
 
-// ====== Processar POST: Toggle Ativo/Inativo ======
+// Toggle Ativo/Inativo 
 if (isset($_POST['toggle_id'])) {
     $ativo = isset($_POST['ativo']) ? 1 : 0;
     idu_sql("UPDATE footer_carousel SET ativo = ? WHERE id = ?", [$ativo, $_POST['toggle_id']]);
@@ -64,7 +62,7 @@ if (isset($_POST['toggle_id'])) {
     exit;
 }
 
-// ====== Processar POST: Eliminar Notícia ======
+// Eliminar Notícia
 if (isset($_POST['delete_id'])) {
     $idEliminar = $_POST['delete_id'];
     idu_sql("DELETE FROM footer_carousel WHERE id = ?", [$idEliminar]);
@@ -73,17 +71,16 @@ if (isset($_POST['delete_id'])) {
     exit;
 }
 
-// ====== Mensagem de Sucesso ======
+// Mensagem de Sucesso
 $mensagem_sucesso = '';
 if (!empty($_SESSION['mensagem_sucesso'])) {
     $mensagem_sucesso = $_SESSION['mensagem_sucesso'];
     unset($_SESSION['mensagem_sucesso']);
 }
-
 require_once "components/header.php";
 ?>
 
-<!-- MENSAGEM DE SUCESSO -->
+
 <?php if($mensagem_sucesso): ?>
   <div class="container-fluid py-3">
     <div class="alert alert-success fw-bold alert-dismissible fade show" role="alert">
@@ -93,20 +90,17 @@ require_once "components/header.php";
   </div>
 <?php endif; ?>
 
-<!-- SEÇÃO: BANNER -->
+<!-- BANNER -->
 <div class="container-fluid py-4">
   <div class="card shadow-lg border-0">
-    
     <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
       <h3 class="mb-0 fw-bold">Banner da Página</h3>
       <button class="btn btn-light btn-sm" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTFM">
         📁 Gerir Ficheiros
       </button>
     </div>
-
     <div class="card-body">
       <form method="post" id="form-banner">
-
         <!-- TABS -->
         <ul class="nav nav-tabs mb-4">
           <li class="nav-item">
@@ -136,11 +130,9 @@ require_once "components/header.php";
           <!-- TAB 2: GALERIA -->
           <div class="tab-pane fade py-3" id="tab-galeria">
             <div class="mx-auto py-2" style="max-width: 85%;">
-              
               <div class="alert alert-info mb-4">
                 <strong>Clique numa imagem</strong> para selecionar como banner da página.
               </div>
-
               <div class="d-flex flex-wrap gap-3 justify-content-center">
                 <?php foreach($banners as $b):
                   $isSelected = ($b['imagem'] ?? '') === $bannerAtual;
@@ -157,14 +149,11 @@ require_once "components/header.php";
                 </div>
                 <?php endforeach; ?>
               </div>
-
             </div>
           </div>
-
         </div>
-
         <input type="hidden" name="banner" id="banner" value="<?= htmlspecialchars($bannerAtual) ?>">
-                 <!-- BOTÃO GUARDAR -->
+        <!-- BOTÃO GUARDAR -->
         <div class="d-flex justify-content-end border-top pt-3 mt-4">
           <button type="submit" name="guardar_banner" class="btn btn-dark btn-lg px-5">Guardar Banner</button>
         </div>             
@@ -174,7 +163,7 @@ require_once "components/header.php";
   </div>
 </div>
 
-<!-- SEÇÃO: NOTÍCIAS E EVENTOS -->
+<!-- NOTÍCIAS E EVENTOS -->
 <div class="container-fluid py-4">
   <div class="card shadow-lg border-0">
 
@@ -199,7 +188,6 @@ require_once "components/header.php";
             <div class="card shadow-sm mb-3 <?= $noticia['ativo'] ? 'border-success border-2' : 'border-secondary' ?>">
               <div class="card-body p-3">
                 <div class="d-flex gap-3 align-items-start">
-                  
                   <div class="flex-shrink-0">
                     <?php if(!empty($noticia['imagem'])): ?>
                       <img src="../<?= htmlspecialchars($noticia['imagem']) ?>" class="rounded" style="width: 120px; height: 100px; object-fit: cover;">
@@ -209,7 +197,6 @@ require_once "components/header.php";
                       </div>
                     <?php endif; ?>
                   </div>
-
                   <div class="flex-grow-1">
                     <div class="d-flex justify-content-between align-items-start mb-2">
                       <div>
@@ -229,16 +216,12 @@ require_once "components/header.php";
                         </form>
                       </div>
                     </div>
-                    
                     <p class="text-muted mb-3 small">
                       <?= htmlspecialchars(mb_strimwidth(strip_tags($noticia['texto']), 0, 200, '...')) ?>
                     </p>
 
                     <div class="d-flex gap-2 flex-wrap">
-                      <button type="button" 
-                              class="btn btn-dark btn-sm" 
-                              onclick="abrirModalEdicao(<?= htmlspecialchars(json_encode($noticia), ENT_QUOTES) ?>)">
-                        Editar
+                      <button type="button" class="btn btn-dark btn-sm" onclick="abrirModalEdicao(<?= htmlspecialchars(json_encode($noticia), ENT_QUOTES) ?>)">Editar
                       </button>
 
                       <form method="post" class="d-inline">
@@ -306,7 +289,6 @@ require_once "components/header.php";
       <form method="post" id="formEdicaoModal">
         <div class="modal-body p-4">
           <input type="hidden" name="id" id="modal-id">
-          
           <div class="row g-3 mb-3">
             <div class="col-md-8">
               <label class="form-label fw-bold">Título</label>
@@ -320,10 +302,10 @@ require_once "components/header.php";
 
           <div class="mb-3">
             <label class="form-label fw-bold">Texto</label>
-            <textarea name="texto" id="modal-texto" class="form-control" rows="8"></textarea>
+            <textarea name="texto" id="modal-texto" class="form-control ckeditor" rows="8"></textarea>
           </div>
 
-          <!-- SEÇÃO DE IMAGEM MELHORADA -->
+          <!-- IMAGEM  -->
           <div class="mb-3">
             <label class="form-label fw-bold">Imagem da Notícia</label>
             
@@ -341,7 +323,7 @@ require_once "components/header.php";
               </li>
             </ul>
 
-            <!-- TAB CONTENT COM ALTURA FIXA -->
+            
             <div class="tab-content border rounded p-3" style="height: 380px; overflow: hidden;">
               
               <!-- TAB 1: PREVIEW -->
@@ -432,53 +414,20 @@ function abrirModalEdicao(noticia) {
   document.getElementById('modal-data').value = noticia.data || '';
   document.getElementById('modal-imagem').value = noticia.imagem || '';
   
-  // Preview da imagem
   atualizarPreview(noticia.imagem || '');
-  
-  const textarea = document.getElementById('modal-texto');
-  textarea.value = noticia.texto || '';
-  
-  // Inicializa CKEditor COM CONFIGURAÇÃO
-  if (!editorModal) {
-    ClassicEditor.create(textarea, {
-      toolbar: {
-        items: [
-          'heading', '|',
-          'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', '|',
-          'bold', 'italic', 'underline', 'strikethrough', '|',
-          'alignment', '|',
-          'numberedList', 'bulletedList', '|',
-          'indent', 'outdent', '|',
-          'link', 'blockQuote', 'insertTable', '|',
-          'undo', 'redo'
-        ],
-        shouldNotGroupWhenFull: true
-      },
-      fontSize: {
-        options: [9, 11, 13, 'default', 17, 19, 21, 25, 29, 33],
-        supportAllValues: true
-      },
-      fontFamily: {
-        options: [
-          'default',
-          'Arial, Helvetica, sans-serif',
-          'Georgia, serif',
-          'Times New Roman, Times, serif',
-          'Verdana, Geneva, sans-serif'
-        ]
-      }
-    })
-    .then(editor => {
-      editorModal = editor;
-      editor.setData(noticia.texto || '');
-    })
-    .catch(error => console.error(error));
-  } else {
-    editorModal.setData(noticia.texto || '');
-  }
   
   const modal = new bootstrap.Modal(document.getElementById('modalEdicao'));
   modal.show();
+
+  // Aguarda CKEditor inicializar
+  setTimeout(() => {
+    const textarea = document.getElementById('modal-texto');
+    if (textarea.editorInstance) {
+      textarea.editorInstance.setData(noticia.texto || '');
+    } else {
+      textarea.value = noticia.texto || '';
+    }
+  }, 300);
 }
 
 // Função para CRIAR nova notícia
@@ -489,58 +438,23 @@ function abrirModalNovaNoticia() {
   document.getElementById('modal-data').value = '';
   document.getElementById('modal-imagem').value = '';
   
-  // Limpar preview
   document.getElementById('preview-container').innerHTML = '<div class="text-muted">Nenhuma imagem selecionada</div>';
   
-  // Remover seleção da galeria
   document.querySelectorAll('.imagem-galeria-item').forEach(item => {
     item.classList.remove('border-success', 'border-3');
   });
   
-  const textarea = document.getElementById('modal-texto');
-  textarea.value = '';
-  
-  // Inicializa CKEditor COM CONFIGURAÇÃO
-  if (!editorModal) {
-    ClassicEditor.create(textarea, {
-      toolbar: {
-        items: [
-          'heading', '|',
-          'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', '|',
-          'bold', 'italic', 'underline', 'strikethrough', '|',
-          'alignment', '|',
-          'numberedList', 'bulletedList', '|',
-          'indent', 'outdent', '|',
-          'link', 'blockQuote', 'insertTable', '|',
-          'undo', 'redo'
-        ],
-        shouldNotGroupWhenFull: true
-      },
-      fontSize: {
-        options: [9, 11, 13, 'default', 17, 19, 21, 25, 29, 33],
-        supportAllValues: true
-      },
-      fontFamily: {
-        options: [
-          'default',
-          'Arial, Helvetica, sans-serif',
-          'Georgia, serif',
-          'Times New Roman, Times, serif',
-          'Verdana, Geneva, sans-serif'
-        ]
-      }
-    })
-    .then(editor => {
-      editorModal = editor;
-      editor.setData('');
-    })
-    .catch(error => console.error(error));
-  } else {
-    editorModal.setData('');
-  }
-  
   const modal = new bootstrap.Modal(document.getElementById('modalEdicao'));
   modal.show();
+
+  setTimeout(() => {
+    const textarea = document.getElementById('modal-texto');
+    if (textarea.editorInstance) {
+      textarea.editorInstance.setData('');
+    } else {
+      textarea.value = '';
+    }
+  }, 300);
 }
 
 // Atualizar preview da imagem

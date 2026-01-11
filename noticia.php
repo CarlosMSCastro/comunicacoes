@@ -24,13 +24,8 @@ $noticia = select_sql("SELECT titulo, imagem, texto FROM footer_carousel WHERE i
         <div class="row mt-3">
           <div class="col-12">
             <p class="textomobile">
-              <?= $noticia['texto'] ?>
+              <?= preg_replace('/<img/', '<img style="max-width: 100% !important; height: auto !important;"', $noticia['texto']) ?>
             </p>
-          </div>
-        </div>
-        <div class="row p-1">
-          <div class="col-12">
-            <img src="<?= $noticia['imagem'] ?>" alt="<?= htmlspecialchars($noticia['titulo']) ?>" class="img-fluid mt-4">
           </div>
         </div>
         <div class="row mt-4 mx-0">

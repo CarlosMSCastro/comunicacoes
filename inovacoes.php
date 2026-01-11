@@ -23,23 +23,11 @@ $inovacao = select_sql("SELECT titulo_h1, texto, texto_2, imagem FROM paginas_in
         <div class="row mt-3 p-0">
           <div class="col-12 p-0">
             <p class="textomobile">
-              <?= $inovacao['texto'] ?>
+              <?= preg_replace('/<img/', '<img style="max-width: 100% !important; height: auto !important;"', $inovacao['texto']) ?>
             </p>
-          </div>
-        </div>
-        <div class="row p-0">
-          <div class="col-12 p-0">
-            <img src="backoffice/<?= $inovacao['imagem'] ?>" alt="<?= htmlspecialchars($inovacao['titulo_h1']) ?>" class="img-fluid mt-4 imgsolucoes">
           </div>
         </div>
 
-        <div class="row mt-3 p-2">
-          <div class="col-12 p-0">
-            <p class="textomobile">
-              <?= $inovacao['texto_2'] ?>
-            </p>
-          </div>
-        </div>
         
       </div>
   </div>

@@ -29,7 +29,7 @@ $totalPages = ceil($totalItems / $perPage);
                     <div class="card-body corpo-texto">
                         <h5 class="card-title"><?= $d['titulo'] ?></h5>
                         <h6 class="card-title"><?= $d['data'] ?></h6>
-                        <p class="card-text"><?= mb_strimwidth($d['texto'], 0, 270, '...') ?></p>
+                        <p class="card-text"><?= mb_strimwidth(strip_tags($d['texto'], '<em>'), 0, 270, '...') ?></p>
                         <div style="display: flex; justify-content: center;">
                             <a href="<?= $d['pagina_url']?>" class="destaques-btn">Ver Mais</a>
                         </div>                                

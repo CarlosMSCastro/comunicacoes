@@ -22,20 +22,7 @@ $solucao = select_sql("SELECT titulo_h1, texto, texto_2, imagem FROM paginas_sol
         <div class="row mt-3 p-0">
           <div class="col-12 p-0">
             <p class="textomobile">
-              <?= $solucao['texto'] ?>
-            </p>
-          </div>
-        </div>
-        <div class="row p-0">
-          <div class="col-12 p-0">
-            <img src="backoffice/<?= htmlspecialchars($solucao['imagem']) ?>" alt="<?= htmlspecialchars($solucao['titulo_h1']) ?>" class="img-fluid mt-4 imgsolucoes">
-          </div>
-        </div>
-
-        <div class="row mt-3 p-1">
-          <div class="col-12 p-0">
-            <p class="textomobile">
-              <?= $solucao['texto_2'] ?>
+              <?= preg_replace('/<img/', '<img style="max-width: 100% !important; height: auto !important;"', $solucao['texto']) ?>
             </p>
           </div>
         </div>
@@ -43,6 +30,7 @@ $solucao = select_sql("SELECT titulo_h1, texto, texto_2, imagem FROM paginas_sol
       </div>
   </div>
 </div>
+
 
 
 

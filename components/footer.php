@@ -106,7 +106,7 @@ if(!isset($showFooterNavbar)) $showFooterNavbar = true;
                                     <div class="noticias-data"><?= $slide['data'] ?></div>
 
                                     <p class="noticias-texto">
-                                        <?= $slide['texto'] ?>
+                                        <p class="card-text"><?= mb_strimwidth(strip_tags($slide['texto'], '<em>'), 0, 600, '...') ?></p>
                                     </p>
                                 </div>
 

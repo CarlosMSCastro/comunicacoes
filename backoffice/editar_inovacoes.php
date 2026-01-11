@@ -206,9 +206,6 @@ require_once "components/header.php";
                     <p class="text-muted mb-2 small">
                       <strong>Texto 1:</strong> <?= htmlspecialchars(mb_strimwidth(strip_tags($paginaItem['texto']), 0, 150, '...')) ?>
                     </p>
-                    <p class="text-muted mb-2 small">
-                      <strong>Texto 2:</strong> <?= htmlspecialchars(mb_strimwidth(strip_tags($paginaItem['texto_2']), 0, 150, '...')) ?>
-                    </p>
                     <div class="d-flex gap-2 flex-wrap mt-2">
                       <button type="button" class="btn btn-dark btn-sm" onclick="abrirModalEdicao(<?= htmlspecialchars(json_encode($paginaItem), ENT_QUOTES) ?>)">
                         Editar
@@ -256,12 +253,6 @@ require_once "components/header.php";
           <div class="mb-3">
             <label class="form-label fw-bold">Texto 1</label>
             <textarea name="texto" id="modal-texto" class="form-control ckeditor" rows="8"></textarea>
-          </div>
-
-          <!-- TEXTO 2 -->
-          <div class="mb-3">
-            <label class="form-label fw-bold">Texto 2</label>
-            <textarea name="texto_2" id="modal-texto-2" class="form-control ckeditor" rows="8"></textarea>
           </div>
 
           <!-- IMAGEM -->
@@ -390,18 +381,12 @@ function abrirModalEdicao(pagina) {
 
   setTimeout(() => {
     const textarea1 = document.getElementById('modal-texto');
-    const textarea2 = document.getElementById('modal-texto-2');
+
     
     if (textarea1.editorInstance) {
       textarea1.editorInstance.setData(pagina.texto || '');
     } else {
       textarea1.value = pagina.texto || '';
-    }
-    
-    if (textarea2.editorInstance) {
-      textarea2.editorInstance.setData(pagina.texto_2 || '');
-    } else {
-      textarea2.value = pagina.texto_2 || '';
     }
   }, 300);
 }
@@ -423,7 +408,6 @@ function abrirModalNovaPagina() {
 
   setTimeout(() => {
     const textarea1 = document.getElementById('modal-texto');
-    const textarea2 = document.getElementById('modal-texto-2');
     
     if (textarea1.editorInstance) {
       textarea1.editorInstance.setData('');
@@ -431,11 +415,6 @@ function abrirModalNovaPagina() {
       textarea1.value = '';
     }
     
-    if (textarea2.editorInstance) {
-      textarea2.editorInstance.setData('');
-    } else {
-      textarea2.value = '';
-    }
   }, 300);
 }
 
